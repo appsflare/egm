@@ -45,6 +45,7 @@ export class SelectGateway extends React.Component<GatewayListProps, {}> {
                     <tr key={gateway.name}>
                         <td>{gateway.name}</td>
                         <td>{gateway.adminApi}</td>
+                        <td><Link to={`/gateways/${gateway.name}`}>Select</Link></td>
                     </tr>
                 )}
             </tbody>
