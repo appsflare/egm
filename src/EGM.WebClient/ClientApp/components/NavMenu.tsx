@@ -12,9 +12,8 @@ export class NavMenu extends React.Component<{}, {}> {
                         <span className='icon-bar'></span>
                         <span className='icon-bar'></span>
                     </button>
-                    <Link className='navbar-brand' to={ '/' }>EGM_WebClient</Link>
-                </div>
-                <div className='clearfix'></div>
+                    <Link className='navbar-brand' to={ '/' }>Express Gateway Manager</Link>
+                </div>                
                 <div className='navbar-collapse collapse'>
                     <ul className='nav navbar-nav'>
                         <li>

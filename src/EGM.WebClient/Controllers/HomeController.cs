@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EGM_WebClient.Controllers
+namespace EGM.WebClient.Controllers
 {
     public class HomeController : Controller
     {

@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/EGM.WebClient.csproj"
+                "${workspaceFolder}/EGM.WebClient/EGM.WebClient.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

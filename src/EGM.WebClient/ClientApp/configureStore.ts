@@ -1,8 +1,13 @@
-import { createStore, applyMiddleware, compose, combineReducers, GenericStoreEnhancer, Store, StoreEnhancerStoreCreator, ReducersMapObject } from 'redux';
+import {
+    createStore, applyMiddleware, compose, combineReducers, GenericStoreEnhancer, MiddlewareAPI,
+    Store, StoreEnhancerStoreCreator, ReducersMapObject
+} from 'redux';
 import thunk from 'redux-thunk';
+import promiseMiddleware from 'redux-promise-middleware';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import * as StoreModule from './store';
 import { ApplicationState, reducers } from './store';
+import { trackPromise } from './middlewares'
 import { History } from 'history';
 
 export default function configureStore(history: History, initialState?: ApplicationState) {
@@ -10,11 +15,11 @@ export default function configureStore(history: History, initialState?: Applicat
     const windowIfDefined = typeof window === 'undefined' ? null : window as any;
     // If devTools is installed, connect to it
     const devToolsExtension = windowIfDefined && windowIfDefined.devToolsExtension as () => GenericStoreEnhancer;
-    const createStoreWithMiddleware = compose(
-        applyMiddleware(thunk, routerMiddleware(history)),
-        devToolsExtension ? devToolsExtension() : <S>(next: StoreEnhancerStoreCreator<S>) => next
-    )(createStore);
 
+    const middlewaresList = [applyMiddleware(thunk, trackPromise, promiseMiddleware(), routerMiddleware(history))];
+    devToolsExtension && middlewaresList.push(devToolsExtension());
+    const createStoreWithMiddleware = compose(...middlewaresList)(createStore) as any;
+    console.log(reducers);
     // Combine all reducers and instantiate the app-wide store instance
     const allReducers = buildRootReducer(reducers);
     const store = createStoreWithMiddleware(allReducers, initialState) as Store<ApplicationState>;
