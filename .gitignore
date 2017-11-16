@@ -10,3 +10,13 @@
 /package-lock.lock
 
 **/*node_modules
+
+.idea/
+.vscode/
+.awcache/
+
+*.swp
+*.log
+.DS_Store
+coverage/
+.coveralls.yml

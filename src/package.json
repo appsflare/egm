@@ -8,10 +8,11 @@
   "author": "Srinath Janakiraman <me@vjsrinath.com>",
   "license": "MIT",
   "scripts": {
+    "build-server":"tsc -p tsconfig.backend.json",
     "build-dll": "webpack --color --config webpack.config.dll.babel.js",
     "build-prod": "webpack --color --config webpack.config.prod.babel.js",
     "profile": "profile=true webpack --color --config webpack.config.prod.babel.js",
-    "server": "tsc -p tsconfig.backend.json && babel-node server",
+    "server": "npm run build-server && babel-node server",
     "test": "jest --no-cache --coverage",
     "coverage": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "deploy": "heroku container:push web",
