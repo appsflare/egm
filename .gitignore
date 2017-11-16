@@ -1,20 +1,10 @@
-
-
-# Visual Studio 2015 cache/options directory
-.vs/
-**/*server
-**/*client/dist/
-**/*frontent/dist/
-
-/yarn.lock
-/package-lock.lock
-
-**/*node_modules
-
 .idea/
 .vscode/
 .awcache/
-
+node_modules/
+frontend/dist/
+client/dist/
+server/
 *.swp
 *.log
 .DS_Store
