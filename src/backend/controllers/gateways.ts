@@ -1,6 +1,6 @@
-import { Controller, Get } from 'routing-controllers';
+import { JsonController, Get } from 'routing-controllers';
 
-@Controller("api/gateways")
+@JsonController("/api/gateways")
 export class GatewaysController {
 
   @Get("/list")

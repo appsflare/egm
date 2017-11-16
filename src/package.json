@@ -1,11 +1,11 @@
 {
-  "name": "express-webpack-react-redux-typescript-boilerplate",
+  "name": "egm",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Armour/express-webpack-react-redux-typescript-boilerplate.git"
+    "url": "https://github.com/appsflare/egm.git"
   },
-  "author": "Chong Guo <cguo@azendless.com>",
+  "author": "Srinath Janakiraman <me@vjsrinath.com>",
   "license": "MIT",
   "scripts": {
     "build-dll": "webpack --color --config webpack.config.dll.babel.js",
