@@ -1,8 +1,0 @@
-{
-    "gateways": [
-        {
-            "name":"default",
-            "adminApi":"http://127.0.0.1:9876/"
-        }
-    ]
-}

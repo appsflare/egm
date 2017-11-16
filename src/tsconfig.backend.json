@@ -1,0 +1,35 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "baseUrl": "backend",
+    "outDir": "server",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "alwaysStrict": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true    
+  },
+  "exclude": [
+    "client",
+    "frontend",
+    "node_modules",
+    "__tests__"
+  ]
+}
