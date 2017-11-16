@@ -8,7 +8,7 @@
   "author": "Srinath Janakiraman <me@vjsrinath.com>",
   "license": "MIT",
   "scripts": {
-    "build-server":"tsc -p tsconfig.backend.json",
+    "build-server": "tsc -p tsconfig.backend.json",
     "build-dll": "webpack --color --config webpack.config.dll.babel.js",
     "build-prod": "webpack --color --config webpack.config.prod.babel.js",
     "profile": "profile=true webpack --color --config webpack.config.prod.babel.js",
@@ -139,7 +139,7 @@
     "webpack-merge": "4.1.1"
   },
   "devDependencies": {
-    "coveralls": "3.0.0",
+    "coveralls": "^3.0.0",
     "husky": "0.14.3",
     "jest": "21.2.1",
     "ts-jest": "21.2.2"
