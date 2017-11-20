@@ -10,14 +10,15 @@ import { Reducer } from 'redux';
 const reducerBuilder = createReducerBuilder<GatewaysState>();
 
 
-reducerBuilder.register(GatewaysActionCreators.requestingGatewayList, (state: GatewaysState) => {
+reducerBuilder.register(GatewaysActionCreators.requestingGatewayList.type, (state: GatewaysState) => {
     return {
-        gateways: state.gateways,
+        gateways: state.gateways || [],
         isLoading: true
     };
 });
 
-reducerBuilder.register(GatewaysActionCreators.receiveGatewayList, (state: GatewaysState, { gateways }: ReceiveGatewaysListActionPayload) => {
+reducerBuilder.register(GatewaysActionCreators.receiveGatewayList.type, (state: GatewaysState, { gateways }: ReceiveGatewaysListActionPayload) => {
+    debugger;
     return {
         ...state,
         gateways,
@@ -25,4 +26,4 @@ reducerBuilder.register(GatewaysActionCreators.receiveGatewayList, (state: Gatew
     };
 });
 
-export const reducer: Reducer<GatewaysState> = reducerBuilder.build({ gateways: [], isLoading: false });
+export const GatewaysReducer: Reducer<GatewaysState> = reducerBuilder.build({ gateways: [], isLoading: false });

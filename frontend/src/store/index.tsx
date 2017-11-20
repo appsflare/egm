@@ -1,9 +1,8 @@
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { applyMiddleware, compose, createStore, Store } from 'redux';
 import { createLogger } from 'redux-logger';
-import promise from 'redux-promise';
 import thunk from 'redux-thunk';
-
+import promiseMiddleware from 'redux-promise-middleware';
 import { History } from 'history';
 
 import { DevTools } from 'containers/DevTools';
@@ -17,10 +16,10 @@ export const configureStore = (initialState: {}, history: History): Store<any> =
   // Enhancer
   let enhancer: any;
   if (isProduction) {
-    enhancer = applyMiddleware(routerMiddleware(history), thunk, promise, logger);
+    enhancer = applyMiddleware(routerMiddleware(history), thunk, promiseMiddleware(), logger);
   } else {
     enhancer = compose(
-      applyMiddleware(routerMiddleware(history), thunk, promise, logger),
+      applyMiddleware(routerMiddleware(history), thunk,  promiseMiddleware(), logger),
       DevTools.instrument(),
     );
   }

@@ -1,7 +1,5 @@
-import { Reducer, Action } from 'redux';
-import { PayloadAction, ActionCreator, ActionCreatorFunction } from 'react-redux-typescript';
-import { Dispatch } from 'react-redux';
-import { createFactory } from 'react';
+import { Reducer } from 'redux';
+import { PayloadAction } from 'react-redux-typescript';
 
 export interface AsyncPayload<TResult> {
     promise: Promise<TResult>;

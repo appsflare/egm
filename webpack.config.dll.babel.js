@@ -17,7 +17,7 @@ const reactVendors = [
   'redux-devtools-dock-monitor',
   'redux-devtools-log-monitor',
   'redux-logger',
-  'redux-promise',
+  'redux-promise-middleware',
   'redux-thunk',
   'connected-react-router',
 ];

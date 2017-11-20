@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { GatewaysState, GatewaysActionCreatorsType } from 'modules/gateways';
+import { GatewaysState, GatewaysActionsType } from 'modules/gateways';
 
 // At runtime, Redux will merge together...
 type GatewayListProps =
     RouteComponentProps<{}>
     & GatewaysState        // ... state we've requested from the Redux store
-    & GatewaysActionCreatorsType      // ... plus action creators we've requested    
+    & GatewaysActionsType      // ... plus action creators we've requested    
 //& RouteComponentProps<any>
 
 export class GatewaySelector extends React.Component<GatewayListProps, {}> {
-    componentWillMount() {
+    componentWillMount() {        
         // This method runs when the component is first added to the page        
         this.props.requestGatewaysList();
     }   
