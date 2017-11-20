@@ -22,9 +22,8 @@ export class Header extends React.Component<{}, IHeaderState> {
       <nav>
         <div className='nav-wrapper'>
           <div className='container'>
-            <span className='brand-logo'><NavLink exact={true} activeClassName='active-link' to='/'>Logo</NavLink></span>
-            <ul id='nav-mobile' className='right hide-on-med-and-down'>
-              <li key='react'><NavLink activeClassName='active-link' to='/react'>React</NavLink></li>
+            <span className='brand-logo'><NavLink exact={true} activeClassName='active-link' to='/'>EGM</NavLink></span>
+            <ul id='nav-mobile' className='right hide-on-med-and-down'>              
               <li key='materialize'>
                 <a className='dropdown-button' href='#' data-beloworigin='true' data-activates={this.state.dropdownId}>Dropdown</a>
               </li>
