@@ -1,1 +1,1 @@
-export * from './SelectGateway';
+export * from './GatewaySelector';

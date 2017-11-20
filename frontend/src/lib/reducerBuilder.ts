@@ -16,7 +16,7 @@ export type ActionPayloadFactory<TParam, TPayload> = (args: TParam) => TPayload;
 
 export interface ActionCreatorWithParam<TType extends string, TPayload, TParam> {
     type: TType;
-    create: (args: TParam) => PayloadAction<TType, TPayload>;
+    create: (args?: TParam) => PayloadAction<TType, TPayload>;
 }
 
 class ActionFactoryImpl<TType extends string, TPayload, TParam> implements ActionCreatorWithParam<TType, TPayload, TParam>{

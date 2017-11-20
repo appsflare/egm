@@ -1,23 +1,23 @@
 import {
-    actions,
+    GatewaysActionCreators,
     ReceiveGatewaysListActionPayload
-} from 'actions';
+} from './actions';
 
 import { createReducerBuilder } from 'lib';
-import { GatewaysState } from 'types';
+import { GatewaysState } from './state';
 import { Reducer } from 'redux';
 
 const reducerBuilder = createReducerBuilder<GatewaysState>();
 
 
-reducerBuilder.register(actions.requestingGatewayList, (state: GatewaysState) => {
+reducerBuilder.register(GatewaysActionCreators.requestingGatewayList, (state: GatewaysState) => {
     return {
         gateways: state.gateways,
         isLoading: true
     };
 });
 
-reducerBuilder.register(actions.receiveGatewayList, (state: GatewaysState, { gateways }: ReceiveGatewaysListActionPayload) => {
+reducerBuilder.register(GatewaysActionCreators.receiveGatewayList, (state: GatewaysState, { gateways }: ReceiveGatewaysListActionPayload) => {
     return {
         ...state,
         gateways,

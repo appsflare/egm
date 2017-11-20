@@ -1,27 +1,19 @@
 import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { ApplicationState } from '../store';
-import { GatewaysState, actionCreators, ActionCreatorsType } from '../store/gateways';
-import { bindActionCreators } from 'redux';
+import { GatewaysState, GatewaysActionCreatorsType } from 'modules/gateways';
 
 // At runtime, Redux will merge together...
 type GatewayListProps =
     RouteComponentProps<{}>
     & GatewaysState        // ... state we've requested from the Redux store
-    & ActionCreatorsType      // ... plus action creators we've requested    
+    & GatewaysActionCreatorsType      // ... plus action creators we've requested    
 //& RouteComponentProps<any>
 
-export class SelectGateway extends React.Component<GatewayListProps, {}> {
+export class GatewaySelector extends React.Component<GatewayListProps, {}> {
     componentWillMount() {
         // This method runs when the component is first added to the page        
         this.props.requestGatewaysList();
-    }
-
-    componentWillReceiveProps(nextProps: GatewayListProps) {
-        // This method runs when incoming props (e.g., route params) change        
-        //this.props.requestGatewaysList();
-    }
+    }   
 
     public render() {
         return <div>
@@ -53,9 +45,6 @@ export class SelectGateway extends React.Component<GatewayListProps, {}> {
     }
 
     private renderPagination() {
-        let prevStartDateIndex = (0) - 5;
-        let nextStartDateIndex = (0) + 5;
-
         return <p className='clearfix text-center'>
             {this.props.isLoading ? <span>Loading...</span> : []}
         </p>;
