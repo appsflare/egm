@@ -27,7 +27,7 @@
   },
   "exclude": [
     "backend",
-    "server",
+    "bin",
     "client"
   ]
 }

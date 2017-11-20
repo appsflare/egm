@@ -6,7 +6,7 @@
     "jsx": "preserve",
     "moduleResolution": "node",
     "baseUrl": "backend",
-    "outDir": "server",
+    "outDir": "bin",
     "typeRoots": [
       "node_modules/@types"
     ],

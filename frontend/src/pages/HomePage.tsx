@@ -20,6 +20,7 @@ export class HomePage extends React.Component {
   public render() {
     return (
       <div>
+        test
         <div className='pushpin-block'>
           <h1>Home</h1>
           <div className='container'>
