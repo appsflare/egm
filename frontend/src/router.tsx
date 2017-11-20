@@ -7,7 +7,7 @@ import { Header } from 'components/Header';
 import { HomePage } from 'pages/HomePage';
 import { NotFoundPage } from 'pages/NotFoundPage';
 import { ReactPage } from 'pages/ReactPage';
-import { GatewaysModuleInfo } from 'modules'
+import modules from 'modules'
 
 export const router = (
   <div>
@@ -15,7 +15,7 @@ export const router = (
     <Switch>
       <Route exact path='/' component={HomePage} />
       <Route path='/react' component={ReactPage} />
-      {GatewaysModuleInfo.routes()}
+      {modules[0].routes()}
       <Route component={NotFoundPage} />
     </Switch>
     <Footer />

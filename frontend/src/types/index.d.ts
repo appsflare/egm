@@ -4,12 +4,20 @@ import { ADD_TODO, TOGGLE_TODO } from 'constants/actionTypes';
 import { SET_VISIBILITY_FILTER, VisibilityFiltersOptions } from 'constants/actionTypes';
 import { RECEIVE_ERROR, RECEIVE_RESPONSE, START_REQUEST } from 'constants/actionTypes';
 import { TEST_DEFAULT_ACTION } from 'constants/actionTypes';
+import { Reducer } from 'redux';
 
 // Components Interfaces
 export { IApiLoaderStateProps, IApiLoaderDispatchProps } from 'components/ApiLoader';
 export { ITodoLinkStateProps, ITodoLinkDispatchProps } from 'components/TodoLink';
 export { ITodoListStateProps, ITodoListDispatchProps } from 'components/TodoList';
 export { ITodoInputDispatchProps } from 'components/TodoInput';
+
+export interface ModuleManifest {
+  name: string;
+  version: string;
+  reducer: Reducer<any>;
+  routes(): JSX.Element;
+}
 
 // Todo App State
 export interface ITodoModel {
