@@ -1,23 +1,37 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-
-import { Footer } from 'components/Footer';
-import { Header } from 'components/Header';
+import { Footer, Header, Sidebar } from 'modules/core';
+import { Container } from 'reactstrap';
 
 import { HomePage } from 'pages/HomePage';
 import { NotFoundPage } from 'pages/NotFoundPage';
-import { ReactPage } from 'pages/ReactPage';
-import modules from 'modules'
+import modules from 'modules';
+
+function extractMenuItems() {
+  return modules.map(i => i.menuItems || []).reduce((prev, curr) => prev.concat(curr), []);
+}
 
 export const router = (
-  <div>
-    <Header />
-    <Switch>
-      <Route exact path='/' component={HomePage} />
-      <Route path='/react' component={ReactPage} />
-      {modules[0].routes()}
-      <Route component={NotFoundPage} />
-    </Switch>
+
+
+  <div className="app">
+    <Header navigationMenu={{ items: extractMenuItems() }} />
+    <div className="app-body">
+      <Sidebar />
+      <main className="main">
+        {/* <Breadcrumb /> */}
+        <Container fluid>
+          <Switch>
+            <Route exact path='/' component={HomePage} />
+            {modules.map(i => i.routes())}
+            <Route component={NotFoundPage} />
+          </Switch>
+        </Container>
+      </main>
+      <aside className="aside-menu">
+        {/*Aside Menu*/}
+      </aside>
+    </div>
     <Footer />
   </div>
 );

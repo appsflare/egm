@@ -1,10 +1,13 @@
 {
 	"folders": [
 		{
-			"path": "src"
+			"path": "."
 		},
 		{
-			"path": "/home/srinath/dev/appsflare/sample-gateway"
+			"path": "/home/srinath/dev/express-gateway-plugin-egm"
+		},
+		{
+			"path": "/home/srinath/dev/samples/sample-gateway"
 		}
 	],
 	"settings": {}

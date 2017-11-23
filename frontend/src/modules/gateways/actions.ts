@@ -5,8 +5,7 @@ export interface RequestGatewaysListActionPayload {
     promise: Promise<ReceiveGatewaysListActionPayload>;
 }
 
-export interface ReceiveGatewaysListActionPayload {
-    gateways: GatewayInfo[];
+export interface ReceiveGatewaysListActionPayload extends AsyncResult<GatewayInfo[]> {    
 }
 
 // -----------------
@@ -15,13 +14,13 @@ export interface ReceiveGatewaysListActionPayload {
 export const GatewaysActionCreators = {
     requestGatewaysList: createAsyncAction('REQUEST_GATEWAYSLIST', () => {
         return {
-            promise: fetch(`/api/gateways/list`)
+            promise: fetch(`/api/gateways`)
                 .then(response => response.json())
-                .then(gateways => Promise.resolve({ gateways }))
+                .then(result => Promise.resolve({ result }))
         }
     }),
     requestingGatewayList: createAction('REQUEST_GATEWAYSLIST_PENDING', (args: RequestGatewaysListActionPayload) => args),
-    receiveGatewayList: createReceiveAsynAction('REQUEST_GATEWAYSLIST_FULFILLED', (args: AsyncResult<ReceiveGatewaysListActionPayload>) => args)
+    receiveGatewayList: createReceiveAsynAction('REQUEST_GATEWAYSLIST_FULFILLED', (args: ReceiveGatewaysListActionPayload) => args)
 }
 
 // ----------------

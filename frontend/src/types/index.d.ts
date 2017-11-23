@@ -5,18 +5,21 @@ import { SET_VISIBILITY_FILTER, VisibilityFiltersOptions } from 'constants/actio
 import { RECEIVE_ERROR, RECEIVE_RESPONSE, START_REQUEST } from 'constants/actionTypes';
 import { TEST_DEFAULT_ACTION } from 'constants/actionTypes';
 import { Reducer } from 'redux';
-
+import { ReactNode } from 'react';
 // Components Interfaces
 export { IApiLoaderStateProps, IApiLoaderDispatchProps } from 'components/ApiLoader';
 export { ITodoLinkStateProps, ITodoLinkDispatchProps } from 'components/TodoLink';
 export { ITodoListStateProps, ITodoListDispatchProps } from 'components/TodoList';
 export { ITodoInputDispatchProps } from 'components/TodoInput';
 
+import { INavigationMenuItem } from 'modules/core';
+
 export interface ModuleManifest {
   name: string;
   version: string;
   reducer: Reducer<any>;
-  routes(): JSX.Element;
+  routes(): ReactNode;
+  menuItems?: INavigationMenuItem[];
 }
 
 // Todo App State

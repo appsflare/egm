@@ -10,5 +10,5 @@ const port = parseInt(process.env.PORT || '3000');
 
 const distPath = path.resolve(__dirname, `../frontend/dist/${isProduction ? 'prod' : 'dev'}`);
 
-const server = new Server({ port, distPath, isProduction });
+const server = new Server({ db:'mongodb://localhost:27017/egm', port, distPath, isProduction });
 server.start();

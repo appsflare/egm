@@ -22,8 +22,10 @@ const reactVendors = [
   'connected-react-router',
 ];
 
-const materializeVendors = [
-  'materialize-css',
+const bootstrap = [
+  'jquery',
+  'bootstrap',
+  'reactstrap'
 ];
 
 const immutableVendors = [
@@ -45,7 +47,7 @@ let config = {
   // Start entry point(s)
   entry: {
     react: reactVendors,
-    materialize: materializeVendors,
+    materialize: bootstrap,
     immutable: immutableVendors,
     misc: miscVendors,
   },

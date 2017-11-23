@@ -7,7 +7,7 @@ export interface AsyncPayload<TResult> {
 };
 
 export interface AsyncResult<TResult> {
-    value: TResult;
+    result: TResult;
 };
 
 export type ActionPayloadFactory<TParam, TPayload> = (args: TParam) => TPayload;
@@ -22,15 +22,13 @@ class ActionFactoryImpl<TType extends string, TPayload, TParam> implements Actio
         return {
             type: this.type,
             payload: this.payloadFactory(args)
-        }
+        };
     };
-
 
     constructor(public readonly type: TType,
         private readonly payloadFactory: ActionPayloadFactory<TParam, TPayload>) { }
 
 }
-
 
 export function createAction<TType extends string, TParam, TPayload>(type: TType, payloadFactory: ActionPayloadFactory<TParam, TPayload>)
     : ActionCreatorWithParam<TType, TPayload, TParam> {
@@ -38,21 +36,16 @@ export function createAction<TType extends string, TParam, TPayload>(type: TType
     return new ActionFactoryImpl(type, payloadFactory)
 }
 
-
 export function createAsyncAction<TType extends string, TParam, TResult, TPayload extends AsyncPayload<TResult>>(type: TType, payloadFactory: ActionPayloadFactory<TParam, TPayload>)
     : ActionCreatorWithParam<TType, TPayload, TParam> {
 
     return new ActionFactoryImpl(type, payloadFactory)
 }
-
-
 export function createReceiveAsynAction<TType extends string, TParam, TResult, TPayload extends AsyncResult<TResult>>(type: TType, payloadFactory: ActionPayloadFactory<TParam, TPayload>)
     : ActionCreatorWithParam<TType, TPayload, TParam> {
 
     return new ActionFactoryImpl(type, payloadFactory)
 }
-
-
 
 export type ActionHandlerType<TState, TPayload> = (state: TState, payload: TPayload) => TState;
 
@@ -61,8 +54,8 @@ export function createReducerBuilder<TState>() {
     const handlers = new Map<any, ActionHandlerType<TState, any>>();
 
     return {
-        register<TPayload>(actionType: any, handler: ActionHandlerType<TState, TPayload>) {
-            handlers.set(actionType, handler);
+        register<TType extends string, TPayload, TParam>(actionDef: ActionCreatorWithParam<TType, TPayload, TParam>, handler: ActionHandlerType<TState, TPayload>) {
+            handlers.set(actionDef.type, handler);
         },
         build(initialState?: TState): Reducer<TState> {
             return (state: TState, action: any | PayloadAction<any, any>) => {
@@ -71,7 +64,7 @@ export function createReducerBuilder<TState>() {
                 const handler = handlers.get(action.type);
 
                 return handler ? handler(finalState, action.payload) : finalState;
-            }
+            };
         }
     }
 }

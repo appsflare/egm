@@ -9,19 +9,17 @@ import { Reducer } from 'redux';
 
 const reducerBuilder = createReducerBuilder<GatewaysState>();
 
-
-reducerBuilder.register(GatewaysActionCreators.requestingGatewayList.type, (state: GatewaysState) => {
+reducerBuilder.register(GatewaysActionCreators.requestingGatewayList, (state: GatewaysState) => {
     return {
         gateways: state.gateways || [],
         isLoading: true
     };
 });
 
-reducerBuilder.register(GatewaysActionCreators.receiveGatewayList.type, (state: GatewaysState, { gateways }: ReceiveGatewaysListActionPayload) => {
-    debugger;
+reducerBuilder.register(GatewaysActionCreators.receiveGatewayList, (state: GatewaysState, { result }: ReceiveGatewaysListActionPayload) => {
     return {
         ...state,
-        gateways,
+        gateways: result,
         isLoading: false
     };
 });

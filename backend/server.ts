@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "./models";
 import * as express from 'express';
 import { createExpressServer, useContainer } from 'routing-controllers';
 import { Container } from 'typedi';
@@ -10,20 +11,28 @@ import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
+import * as mongoose from 'mongoose';
+import { toArray } from './lib';
+import * as Controllers from './controllers';
 
 import * as webpack from 'webpack';
 
 import * as webpackDevMiddleware from 'webpack-dev-middleware';
 import { WebpackDevMiddleware } from 'webpack-dev-middleware';
 import * as  webpackHotMiddleware from 'webpack-hot-middleware';
-const webpackConfig = require('../webpack.config.dev.babel').default;
 
-//import api from './routes/api';
-
+const webpackConfig = require('../webpack.config.dev.babel');
 
 useContainer(Container);
 
+require('mongoose').Promise = Promise;
 
+interface ServerOptions {
+    db: string;
+    isProduction: boolean;
+    distPath: string;
+    port: number
+}
 
 export class Server {
     private readonly middlewares = new Array<any>();
@@ -31,11 +40,7 @@ export class Server {
     private started: boolean = false;
     private app: any;
 
-    constructor(private readonly options: {
-        isProduction: boolean,
-        distPath: string,
-        port: number
-    }) {
+    constructor(private readonly options: ServerOptions) {
         Container.set("config", this.options);
     }
 
@@ -50,16 +55,16 @@ export class Server {
     private create() {
 
         const app = createExpressServer({
-            classTransformer: true,
-            controllers: [__dirname + "/controllers/*.js"]
+            classTransformer: false,            
+            controllers: toArray(Controllers),
         });
 
         this.middlewares.forEach(m => app.use(m));
 
         app.get('*', (req: Request, res: Response) => {
-            const { distPath }  = this.options;
+            const { distPath } = this.options;
             console.log(req.url);
-            
+
             res.sendFile(`${distPath}/index.html`);
         });
 
@@ -125,7 +130,8 @@ export class Server {
 
     }
 
-    private beforeStart(): Promise<any> {
+    private async beforeStart(): Promise<any> {
+        await mongoose.connect(this.options.db, { useMongoClient: true });
         return new Promise((resolve) => {
 
             if (!this.webpackMiddleware) {
