@@ -5,9 +5,9 @@
     "target": "es2015",
     "jsx": "preserve",
     "moduleResolution": "node",
-    "baseUrl": "./",    
+    "baseUrl": "./",
     "typeRoots": [
-      "node_modules/@types"
+      "../node_modules/@types"
     ],
     "allowJs": true,
     "alwaysStrict": true,
@@ -24,8 +24,7 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true    
+    "experimentalDecorators": true
   },
   "exclude": []
 }
-

@@ -5,6 +5,6 @@ import { SelectGatewayPage } from './pages';
 
 export function renderRoutes() {
     return (
-        <Route path="/gateways/select" component={SelectGatewayPage} />
+        <Route key="select-gateway" path="/gateways/select" component={SelectGatewayPage} />
     );
 }

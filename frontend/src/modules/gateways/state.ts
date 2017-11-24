@@ -3,10 +3,11 @@
 
 export interface GatewaysState {
     isLoading: boolean;
+    selectedGateway?: string;
     gateways: GatewayInfo[];
 }
 
 export interface GatewayInfo {
-    name: string;
-    adminApi: string;
+    _id: string;
+    name: string;    
 }

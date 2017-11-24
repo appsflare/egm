@@ -3,43 +3,18 @@ import {
   // Nav,
   // NavItem,
   NavbarToggler,
-  NavbarBrand,
-  Nav
-  
+  NavbarBrand
+
 } from 'reactstrap';
 
+import { NavigationMenu, INavigationMenuItem } from './NavigationMenu';
 
-
-import { NavigationMenu, INavigationMenuProps } from './NavigationMenu';
 //import { NavLink } from 'react-router-dom';
 
 interface IHeaderProps {
-  navigationMenu: INavigationMenuProps;
+  left: INavigationMenuItem[];
+  right: INavigationMenuItem[];
 }
-
-
-// export class Header extends React.Component<IHeaderProps> {
-//   constructor(props: IHeaderProps) {
-//     super(props);
-
-//   }
-
-//   public render() {
-//     return (
-//       <nav>
-//         <div className='nav-wrapper'>
-//           <div className='container'>
-//             <span className='brand-logo'>
-//               <NavLink exact={true} activeClassName='active-link' to='/'>EGM</NavLink>
-//             </span>
-
-//           </div>
-//         </div>
-//       </nav>
-//     );
-//   }
-// }
-
 
 export class Header extends React.Component<IHeaderProps> {
 
@@ -64,24 +39,24 @@ export class Header extends React.Component<IHeaderProps> {
   }
 
   render() {
+    const { left, right } = this.props;
     return (
 
       <header className="app-header navbar">
-      <NavbarToggler className="d-lg-none" onClick={this.mobileSidebarToggle}>
-        <span className="navbar-toggler-icon"></span>
-      </NavbarToggler>
-      <NavbarBrand cssModule={{ textAlign: 'center' }} href="/">EGM</NavbarBrand>
-      <NavbarToggler className="d-md-down-none" onClick={this.sidebarToggle}>
-        <span className="navbar-toggler-icon"></span>
-      </NavbarToggler>
-      <NavigationMenu {...this.props.navigationMenu} />
-      <Nav className="ml-auto" navbar/>
-     
-      
-      <NavbarToggler className="d-md-down-none" onClick={this.asideToggle}>
-        <span className="navbar-toggler-icon"></span>
-      </NavbarToggler>
-    </header>
+        <NavbarToggler className="d-lg-none" onClick={this.mobileSidebarToggle}>
+          <span className="navbar-toggler-icon"></span>
+        </NavbarToggler>
+        <NavbarBrand cssModule={{ textAlign: 'center' }} href="/">EGM</NavbarBrand>
+        <NavbarToggler className="d-md-down-none" onClick={this.sidebarToggle}>
+          <span className="navbar-toggler-icon"></span>
+        </NavbarToggler>
+        <NavigationMenu className="d-md-down-none" items={left} />
+        <NavigationMenu className="ml-auto" items={right} />
+
+        <NavbarToggler className="d-md-down-none" onClick={this.asideToggle}>
+          <span className="navbar-toggler-icon"></span>
+        </NavbarToggler>
+      </header>
     );
   }
 }

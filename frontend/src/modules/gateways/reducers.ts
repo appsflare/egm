@@ -1,11 +1,11 @@
 import {
     GatewaysActionCreators,
-    ReceiveGatewaysListActionPayload
+    ReceiveGatewaysListActionPayload,
+    SelectGatewayPayload
 } from './actions';
 
 import { createReducerBuilder } from 'lib';
 import { GatewaysState } from './state';
-import { Reducer } from 'redux';
 
 const reducerBuilder = createReducerBuilder<GatewaysState>();
 
@@ -24,4 +24,11 @@ reducerBuilder.register(GatewaysActionCreators.receiveGatewayList, (state: Gatew
     };
 });
 
-export const GatewaysReducer: Reducer<GatewaysState> = reducerBuilder.build({ gateways: [], isLoading: false });
+reducerBuilder.register(GatewaysActionCreators.selectGateway, (state: GatewaysState, { gatewayId }: SelectGatewayPayload) => {
+    return {
+        ...state,
+        selectedGateway: gatewayId
+    };
+});
+
+export const GatewaysReducer = reducerBuilder.build({ gateways: [], isLoading: false });

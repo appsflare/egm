@@ -5,9 +5,9 @@
     "target": "es6",
     "jsx": "react",
     "moduleResolution": "node",
-    "baseUrl": "frontend/src",
+    "baseUrl": "src",
     "typeRoots": [
-      "node_modules/@types"
+      "../node_modules/@types"
     ],
     "alwaysStrict": true,
     "allowSyntheticDefaultImports": true,
@@ -24,8 +24,5 @@
     "strictNullChecks": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
-  },
-  "exclude": [
-    "server"   
-  ]
+  }  
 }

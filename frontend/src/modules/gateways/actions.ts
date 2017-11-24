@@ -5,7 +5,11 @@ export interface RequestGatewaysListActionPayload {
     promise: Promise<ReceiveGatewaysListActionPayload>;
 }
 
-export interface ReceiveGatewaysListActionPayload extends AsyncResult<GatewayInfo[]> {    
+export interface ReceiveGatewaysListActionPayload extends AsyncResult<GatewayInfo[]> {
+}
+
+export interface SelectGatewayPayload {
+    gatewayId: string;
 }
 
 // -----------------
@@ -20,7 +24,8 @@ export const GatewaysActionCreators = {
         }
     }),
     requestingGatewayList: createAction('REQUEST_GATEWAYSLIST_PENDING', (args: RequestGatewaysListActionPayload) => args),
-    receiveGatewayList: createReceiveAsynAction('REQUEST_GATEWAYSLIST_FULFILLED', (args: ReceiveGatewaysListActionPayload) => args)
+    receiveGatewayList: createReceiveAsynAction('REQUEST_GATEWAYSLIST_FULFILLED', (args: ReceiveGatewaysListActionPayload) => args),
+    selectGateway: createAction('SELECT_GATEWAY', (args: SelectGatewayPayload) => args)
 }
 
 // ----------------
@@ -30,7 +35,8 @@ export const GatewaysActionCreators = {
 export const GatewaysActions = {
     requestGatewaysList: GatewaysActionCreators.requestGatewaysList.create,
     requestingGatewayList: GatewaysActionCreators.requestingGatewayList.create,
-    receiveGatewayList: GatewaysActionCreators.receiveGatewayList.create
+    receiveGatewayList: GatewaysActionCreators.receiveGatewayList.create,
+    selectGateway: GatewaysActionCreators.selectGateway.create
 };
 
 export type GatewaysActionsType = typeof GatewaysActions;
