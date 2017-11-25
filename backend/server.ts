@@ -12,7 +12,10 @@ import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 import * as mongoose from 'mongoose';
-import { toArray } from './lib';
+import * as passport from 'passport';
+import * as session from 'express-session';
+
+import { convertToGlobalMiddleware, toArray } from './lib';
 import * as Controllers from './controllers';
 
 import * as webpack from 'webpack';
@@ -20,6 +23,7 @@ import * as webpack from 'webpack';
 import * as webpackDevMiddleware from 'webpack-dev-middleware';
 import { WebpackDevMiddleware } from 'webpack-dev-middleware';
 import * as  webpackHotMiddleware from 'webpack-hot-middleware';
+import { PassportInitializer } from "./passport-initializer";
 
 const webpackConfig = require('../webpack.config.dev.babel');
 
@@ -49,17 +53,21 @@ export class Server {
     }
 
     private use(...middlewares: Array<any>) {
-        this.middlewares.push(middlewares)
+        this.middlewares.push(...middlewares);
     }
 
     private create() {
 
+
+       const middlewares = this.middlewares.map(m=> convertToGlobalMiddleware(m));
         const app = createExpressServer({
-            classTransformer: false,            
+            classTransformer: false,
+            middlewares,
             controllers: toArray(Controllers),
         });
 
-        this.middlewares.forEach(m => app.use(m));
+        //this.middlewares.forEach(m => app.use(m));
+
 
         app.get('*', (req: Request, res: Response) => {
             const { distPath } = this.options;
@@ -85,12 +93,18 @@ export class Server {
             bodyParser.json({
                 limit: '20mb',
             }),
-            bodyParser.urlencoded({
-                limit: '20mb',
-                extended: true,
-            }),
-            cookieParser()
+            // bodyParser.urlencoded({
+            //     limit: '20mb',
+            //     extended: true,
+            // }),
+            cookieParser(),
+            session({ resave: true, saveUninitialized: true, secret: '324dewerwer2' }),
+            passport.initialize(),
+            passport.session()
         );
+
+        const initializer = Container.get(PassportInitializer);
+        initializer.initialize();
     }
 
     private addProdMiddlewares() {

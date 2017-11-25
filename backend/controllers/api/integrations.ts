@@ -1,7 +1,7 @@
 import { JsonController, Post, Body } from 'routing-controllers';
 import { Inject } from 'typedi';
-import { GatewayService, IGatewayService } from '../services';
-import { IGatewayModel } from '../models';
+import { GatewayService, IGatewayService } from '../../services';
+import { IGatewayModel } from '../../models';
 
 @JsonController("/api/integrations")
 export class IntegrationsController {

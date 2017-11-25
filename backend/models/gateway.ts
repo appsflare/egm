@@ -1,11 +1,6 @@
 import { Service } from 'typedi';
 import { createModel, prop, BaseModel } from '../lib';
 
-export interface IGatewayConfigModel {
-    keyId: string;
-    keySecret: string;
-}
-
 export interface IGatewayModel {
     name: string;
 
@@ -13,20 +8,11 @@ export interface IGatewayModel {
 
     adminPingEndpoint: string;
 
-    gatewayPingEndpoint: string;
-
-    config: IGatewayConfigModel;
+    gatewayPingEndpoint: string;    
 }
 
 function factory() {
     return createModel(GatewayModel);
-}
-
-class GatewayConfigModel extends BaseModel implements IGatewayConfigModel {
-    @prop()
-    keyId: string;
-    @prop()
-    keySecret: string;
 }
 
 @Service({ id: GatewayModel.type, factory })
@@ -45,10 +31,6 @@ export class GatewayModel extends BaseModel implements IGatewayModel {
 
     @prop()
     gatewayPingEndpoint: string;
-
-    @prop()
-    config: GatewayConfigModel;
-
 }
 
 

@@ -4,8 +4,7 @@
     "module": "commonjs",
     "target": "es2015",
     "jsx": "preserve",
-    "moduleResolution": "node",
-    "baseUrl": "./",
+    "moduleResolution": "node",    
     "typeRoots": [
       "../node_modules/@types"
     ],

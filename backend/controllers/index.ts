@@ -1,2 +1,2 @@
-export * from './gateways';
-export * from './integrations';
+export * from './api';
+export * from './account';

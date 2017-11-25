@@ -1,1 +1,2 @@
-export * from './gateways';
+export * from './account';
+export * from './gateway';

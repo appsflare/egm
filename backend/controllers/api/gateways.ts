@@ -1,5 +1,5 @@
 import { JsonController, Get } from 'routing-controllers';
-import { GatewayService, IGatewayService } from '../services';
+import { GatewayService, IGatewayService } from '../../services';
 import { Inject } from 'typedi';
 
 @JsonController("/api/gateways")
