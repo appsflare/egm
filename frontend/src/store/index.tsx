@@ -9,7 +9,7 @@ import { DevTools } from 'containers/DevTools';
 import { reducers } from 'reducers';
 import { isProduction } from 'utils';
 
-export const configureStore = (initialState: {}, history: History): Store<any> => {
+export const configureStore = (initialState: {}, history: History, modulesReducer: {}= {}): Store<any> => {
   // Logger
   const logger = createLogger();
 
@@ -25,7 +25,7 @@ export const configureStore = (initialState: {}, history: History): Store<any> =
   }
 
   // Store
-  const store = createStore(connectRouter(history)(reducers), initialState, enhancer);
+  const store = createStore(connectRouter(history)(reducers(modulesReducer)), initialState, enhancer);
 
   // Enable Webpack hot module replacement for reducers
   if (!isProduction && module.hot) {
