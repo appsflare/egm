@@ -164,6 +164,7 @@
     "coveralls": "^3.0.0",
     "husky": "0.14.3",
     "jest": "21.2.1",
+    "redux-devtools-extension": "^2.13.2",
     "ts-jest": "21.2.2",
     "ts-node-dev": "^1.0.0-pre.5"
   },

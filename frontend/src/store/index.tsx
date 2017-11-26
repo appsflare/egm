@@ -5,11 +5,12 @@ import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 import { History } from 'history';
 
-import { DevTools } from 'containers/DevTools';
 import { reducers } from 'reducers';
 import { isProduction } from 'utils';
 
-export const configureStore = (initialState: {}, history: History, modulesReducer: {}= {}): Store<any> => {
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+export const configureStore = (initialState: {}, history: History, modulesReducer: {} = {}): Store<any> => {
   // Logger
   const logger = createLogger();
 
@@ -18,10 +19,12 @@ export const configureStore = (initialState: {}, history: History, modulesReduce
   if (isProduction) {
     enhancer = applyMiddleware(routerMiddleware(history), thunk, promiseMiddleware(), logger);
   } else {
+
     enhancer = compose(
-      applyMiddleware(routerMiddleware(history), thunk,  promiseMiddleware(), logger),
-      DevTools.instrument(),
+      applyMiddleware(routerMiddleware(history), thunk, promiseMiddleware(), logger),      
     );
+
+    enhancer = composeWithDevTools(enhancer);
   }
 
   // Store

@@ -14,9 +14,13 @@ export interface LoginResultPayload extends AsyncResult<IAccountInfo> { }
 
 export const AccountActionCreators = {
     login: createAsyncAction("LOGIN", (args: LoginArgs) => {
+
         return {
-            promise: fetch('/account/login', { method: 'POST', body: JSON.stringify(args) })
-                .then(res => res.json())
+            promise: fetch('/account/login', {
+                method: 'POST',
+                body: JSON.stringify(args),
+                headers: [["content-type", "application/json"]]
+            }).then(res => res.json())
                 .then(value => ({ value }))
         }
     }),
@@ -29,3 +33,5 @@ export const AccountActions = {
     loginPending: AccountActionCreators.loginPending.create,
     loginCompleted: AccountActionCreators.loginCompleted.create
 };
+
+export type AccountActionsType = typeof AccountActions;
