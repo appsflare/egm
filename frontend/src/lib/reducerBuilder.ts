@@ -57,6 +57,9 @@ export function createReducerBuilder<TState>() {
         register<TType extends string, TPayload, TParam>(actionDef: ActionCreatorWithParam<TType, TPayload, TParam>, handler: ActionHandlerType<TState, TPayload>) {
             handlers.set(actionDef.type, handler);
         },
+        registerMultiple<TType extends string, TPayload, TParam>(actionDefs: ActionCreatorWithParam<TType, TPayload, TParam>[], handler: ActionHandlerType<TState, TPayload>) {
+            actionDefs.forEach(a => this.register(a, handler));
+        },
         build(initialState?: TState): Reducer<TState> {
             return (state: TState, action: any | PayloadAction<any, any>) => {
 

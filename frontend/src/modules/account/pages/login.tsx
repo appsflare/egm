@@ -14,20 +14,27 @@ import { Redirect } from 'react-router';
 interface LoginPageProps extends AccountActionsType {
     isLoggedIn: boolean;
     isLoggingIn: boolean;
+    error?: string;
 }
 
 
 class LoginPageComp extends React.Component<LoginPageProps> {
 
-    onSubmit = (values: any) => {
-        this.props.login(values);
+    // onSubmit = (values: any) => {
+    //     return this.props.login(values).payload.promise;
+    // }
+
+    componentDidMount() {
+        this.props.checkLogin();
     }
 
     render() {
         const { isLoggedIn, isLoggingIn } = this.props;
 
         if (isLoggedIn) {
-            <Redirect to="/app" />
+            return (
+                <Redirect to="/app" />
+            );
         }
 
         return (
@@ -35,7 +42,7 @@ class LoginPageComp extends React.Component<LoginPageProps> {
                 <CardGroup>
                     <Card className="p-4">
                         <CardBody>
-                            {isLoggingIn ? 'Please wait...' : <LoginFormContainer onSubmit={this.onSubmit} form="login" />}
+                            {isLoggingIn ? 'Please wait...' : <LoginFormContainer form="login" />}
                         </CardBody>
                     </Card>
                     <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: 44 + '%' }}>
@@ -57,6 +64,5 @@ class LoginPageComp extends React.Component<LoginPageProps> {
 
 export const LoginPage = connect((state: { accounts: IAccountState }, props: any) => {
     const { accounts } = state;
-    const { isLoggingIn, isLoggedIn } = accounts;
-    return { isLoggingIn, isLoggedIn, ...props };
+    return { ...accounts, ...props };
 }, (dispatch) => bindActionCreators(AccountActions, dispatch))(LoginPageComp);

@@ -4,7 +4,7 @@ import { Store } from 'redux';
 
 import { ConnectedRouter } from 'connected-react-router';
 import { History } from 'history';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { NotFoundPage } from 'modules/core/pages';
 
 // import { DevTools } from 'containers/DevTools';
@@ -23,6 +23,7 @@ import 'scss/style.scss'
 import 'scss/core/_dropdown-menu-right.scss'
 
 
+
 interface IAppProps {
   store: Store<any>;
   history: History;
@@ -36,11 +37,11 @@ export class App extends React.Component<IAppProps, {}> {
       <Provider store={this.props.store}>
         <ConnectedRouter history={this.props.history}>
           <div className="app-root">
-            {/* <Switch> */}
-            {this.props.routes}
-            <Route component={NotFoundPage} />
-            {/* </Switch> */}
-            {/* {!isProduction && <DevTools />} */}
+            <Switch>
+              {this.props.routes}
+              <Route component={NotFoundPage} />
+              {/* {!isProduction && <DevTools />} */}
+            </Switch>
           </div>
         </ConnectedRouter>
       </Provider>

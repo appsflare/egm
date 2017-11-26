@@ -24,6 +24,7 @@ function renderFieldGroup(icon: string) {
 export class LoginForm extends React.Component<InjectedFormProps<ILoginFormData>>{
 
     render() {
+        const { submitting, pristine } = this.props;
         return (
             <Form onSubmit={this.props.handleSubmit}>
                 <h1>Login</h1>
@@ -32,7 +33,7 @@ export class LoginForm extends React.Component<InjectedFormProps<ILoginFormData>
                 <Field className="mb-4" name="password" label="Password" type="password" component={renderFieldGroup('icon-lock')} />
                 <Row>
                     <Col xs="6">
-                        <Button type="submit" color="primary" className="px-4">Login</Button>
+                        <Button type="submit" color="primary" className="px-4" disabled={pristine || submitting} >Login</Button>
                     </Col>
                     {/* <Col xs="6" className="text-right">
                                                     <Button color="link" className="px-0">Forgot password?</Button>

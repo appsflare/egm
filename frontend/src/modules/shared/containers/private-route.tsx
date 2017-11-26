@@ -3,13 +3,21 @@ import { Redirect, RouteProps, RouteComponentProps, Route, withRouter } from 're
 import { connect } from 'react-redux';
 import { IAccountState } from 'modules/account/state';
 import { bindActionCreators } from 'redux';
-import { AccountActions } from 'modules/account/actions';
+import { AccountActions, AccountActionsType } from 'modules/account/actions';
 
-function renderProtected(props: RouteProps & IAccountState & RouteComponentProps<{}>) {
+function renderProtected(props: RouteProps & IAccountState & RouteComponentProps<{}> & AccountActionsType) {
     const { isLoggedIn, location, component } = props;
+
     console.log('curr loc: ', location.pathname);
 
     const render = (m: any) => {
+
+        if (!isLoggedIn) {
+            return (
+                <Redirect exact to={{ pathname: '/app/account/login', state: { from: location.pathname } }} />
+            );
+        }
+
         if (props.component) {
             const Component = component as React.ComponentClass<RouteComponentProps<{}>>;
             return (<Component {...m} />);
@@ -17,13 +25,11 @@ function renderProtected(props: RouteProps & IAccountState & RouteComponentProps
         if (props.render) {
             return props.render(m);
         }
-        return null;
+        return <span>There is nothing to render!!</span>;
     }
 
     return (
-        <Route { ...props} render={((matchProps) => (isLoggedIn ?
-            render(matchProps) :
-            <Redirect to={{ pathname: '/app/account/login', state: { from: location.pathname } }} />))} />
+        <Route { ...props} render={(matchProps) => render(matchProps)} />
     );
 }
 
