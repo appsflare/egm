@@ -36,6 +36,11 @@ export class AccountController {
         return this.accountService.register(account);
     }
 
+    @Post("/validate/email")
+    validateEmail( @Body() account: Partial<IAccountModel>) {
+        return this.accountService.isEmailValid(account.email || '');
+    }
+
     @Get("/logout")
     logout( @Req() req: Request) {
         let result = !!req.user;

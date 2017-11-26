@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Col, CardGroup, CardBody, Card, Button } from 'reactstrap';
+import { Col, CardGroup, CardBody, Card, Button, Alert } from 'reactstrap';
 import { LoginFormContainer } from '../containers';
 
 
@@ -9,9 +9,9 @@ import { bindActionCreators } from 'redux';
 import { IAccountState } from '../state';
 
 import { AccountActions, AccountActionsType } from '../actions';
-import { Redirect } from 'react-router';
+import { Redirect, withRouter, RouteComponentProps } from 'react-router';
 
-interface LoginPageProps extends AccountActionsType {
+interface LoginPageProps extends AccountActionsType, RouteComponentProps<any> {
     isLoggedIn: boolean;
     isLoggingIn: boolean;
     error?: string;
@@ -28,8 +28,18 @@ class LoginPageComp extends React.Component<LoginPageProps> {
         this.props.checkLogin();
     }
 
+    gotoRegister = () => {
+        this.props.history.push('/app/account/register');
+    }
+
     render() {
-        const { isLoggedIn, isLoggingIn } = this.props;
+        const { isLoggedIn, isLoggingIn, location } = this.props;
+
+        const { state } = location;
+
+        const flashMessage = state && state.message;
+
+
 
         if (isLoggedIn) {
             return (
@@ -42,6 +52,7 @@ class LoginPageComp extends React.Component<LoginPageProps> {
                 <CardGroup>
                     <Card className="p-4">
                         <CardBody>
+                            {flashMessage && <Alert>{flashMessage}</Alert>}
                             {isLoggingIn ? 'Please wait...' : <LoginFormContainer form="login" />}
                         </CardBody>
                     </Card>
@@ -50,7 +61,7 @@ class LoginPageComp extends React.Component<LoginPageProps> {
                             <div>
                                 <h2>Create Account</h2>
                                 <p>Create a new account to start managing your express gateway instances.</p>
-                                <Button color="primary" className="mt-3" active>Register Now!</Button>
+                                <Button color="primary" className="mt-3" active onClick={this.gotoRegister} >Register Now!</Button>
                             </div>
                         </CardBody>
                     </Card>
@@ -65,4 +76,4 @@ class LoginPageComp extends React.Component<LoginPageProps> {
 export const LoginPage = connect((state: { accounts: IAccountState }, props: any) => {
     const { accounts } = state;
     return { ...accounts, ...props };
-}, (dispatch) => bindActionCreators(AccountActions, dispatch))(LoginPageComp);
+}, (dispatch) => bindActionCreators(AccountActions, dispatch))(withRouter(LoginPageComp));

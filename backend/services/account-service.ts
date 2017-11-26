@@ -8,12 +8,15 @@ export interface IAccountService {
 
     register(account: IAccountModel): Promise<IAccountModel | undefined>;
 
+    isEmailValid(email: string): Promise<{ result: boolean; error?: string }>;
+
     validate(email: string, password: string): Promise<IAccountModel | undefined>;
 
 }
 
 @Service(AccountService.type)
 export class AccountService implements IAccountService {
+
 
     static type = new Token<AccountService>();
 
@@ -38,6 +41,20 @@ export class AccountService implements IAccountService {
             throw new Error('Email or password is invalid');
         }
         return this.getById(result._id);
+    }
+
+
+    async isEmailValid(email: string): Promise<{ result: boolean; error?: string; }> {
+
+        if (email === undefined || email.length === 0) {
+            return { result: false, error: 'invalid' };
+        }
+
+        const count = await this.accountModel.count({ email });
+        if (count > 0) {
+            return { result: false, error: 'taken' };
+        }
+        return { result: true };
     }
 
 }

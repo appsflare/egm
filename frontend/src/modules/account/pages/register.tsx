@@ -1,31 +1,24 @@
 import * as React from 'react';
-import { Row, Col, Card, CardBody, CardFooter, Button, Input, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Row, Col, Card, CardBody, CardFooter, Button } from 'reactstrap';
+import { RegisterFormContainer } from '../containers';
+import { connect } from 'react-redux';
+import { IAccountState } from '../state';
+import { bindActionCreators } from 'redux';
+import { AccountActions } from '../actions';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-export class RegisterPage extends React.Component {
+
+class RegisterPageComp extends React.Component<RouteComponentProps<{}>> {
     render() {
         return (
             <Col md="6">
                 <Card className="mx-4">
                     <CardBody className="p-4">
-                        <h1>Register</h1>
-                        <p className="text-muted">Create your account</p>
-                        <InputGroup className="mb-3">
-                            <InputGroupAddon><i className="icon-user"></i></InputGroupAddon>
-                            <Input type="text" placeholder="Username" />
-                        </InputGroup>
-                        <InputGroup className="mb-3">
-                            <InputGroupAddon>@</InputGroupAddon>
-                            <Input type="text" placeholder="Email" />
-                        </InputGroup>
-                        <InputGroup className="mb-3">
-                            <InputGroupAddon><i className="icon-lock"></i></InputGroupAddon>
-                            <Input type="password" placeholder="Password" />
-                        </InputGroup>
-                        <InputGroup className="mb-4">
-                            <InputGroupAddon><i className="icon-lock"></i></InputGroupAddon>
-                            <Input type="password" placeholder="Repeat password" />
-                        </InputGroup>
-                        <Button color="success" block>Create Account</Button>
+                        <RegisterFormContainer onSubmitSuccess={() => {
+                            this.props.history.push('/app/account/login', {
+                                message: 'Successfully created your account!'
+                            });
+                        }} />
                     </CardBody>
                     <CardFooter className="p-4">
                         <Row>
@@ -42,3 +35,9 @@ export class RegisterPage extends React.Component {
         );
     }
 }
+
+
+export const RegisterPage = connect((state: { accounts: IAccountState }, props: any) => {
+    const { accounts } = state;
+    return { ...accounts, ...props };
+}, (dispatch) => bindActionCreators(AccountActions, dispatch))(withRouter(RegisterPageComp));

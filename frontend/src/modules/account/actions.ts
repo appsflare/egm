@@ -25,7 +25,7 @@ export const AccountActionCreators = {
                 .then(result => ({ result }))
         }
     }),
-    loginPending: createAction('LOGIN_PRENDING', (args: ILoginPayload) => args),
+    loginPending: createAction('LOGIN_PENDING', (args: ILoginPayload) => args),
     loginCompleted: createReceiveAsynAction('LOGIN_FULFILLED', (args: ILoginResultPayload) => args),
     loginFailed: createAction('LOGIN_REJECTED', (args: Error) => args),
     checkLogin: createAsyncAction("CHECK_LOGIN", (args: ILoginArgs) => {
@@ -40,9 +40,9 @@ export const AccountActionCreators = {
                 .then(result => ({ result }))
         }
     }),
-    checkLoginPending: createAction('CHECK_LOGIN_PRENDING', (args: ILoginPayload) => args),
+    checkLoginPending: createAction('CHECK_LOGIN_PENDING', (args: ILoginPayload) => args),
     checkLoginCompleted: createReceiveAsynAction('CHECK_LOGIN_FULFILLED', (args: ILoginResultPayload) => args),
-    checkLoginFailed: createAction('CHECK_LOGIN_REJECTED', (args: Error) => args),
+    checkLoginFailed: createAction('CHECK_LOGIN_REJECTED', (args: Error) => args)   
 };
 
 export const AccountActions = {

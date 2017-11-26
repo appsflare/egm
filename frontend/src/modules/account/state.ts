@@ -7,5 +7,5 @@ export interface IAccountState {
     isLoggedIn: boolean;
     isLoggingIn: boolean;
     account?: IAccountInfo;
-    error?: string;
+    error?: string;    
 }
