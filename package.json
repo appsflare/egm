@@ -11,6 +11,7 @@
     "build-server": "tsc -p tsconfig.backend.json",
     "build-dll": "webpack --color --config webpack.config.dll.babel.js",
     "build-prod": "webpack --color --config webpack.config.prod.babel.js",
+    "build-dev": "webpack --color --config webpack.config.dev.babel.js",
     "profile": "profile=true webpack --color --config webpack.config.prod.babel.js",
     "server": "npm run build-dll && ts-node -P backend/tsconfig.json backend/index.ts",
     "dev": "npm run build-dll && ts-node-dev -P backend/tsconfig.json backend/index.ts",

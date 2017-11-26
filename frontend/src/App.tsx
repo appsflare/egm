@@ -4,7 +4,7 @@ import { Store } from 'redux';
 
 import { ConnectedRouter } from 'connected-react-router';
 import { History } from 'history';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { NotFoundPage } from 'modules/core/pages';
 
 // import { DevTools } from 'containers/DevTools';
@@ -36,10 +36,10 @@ export class App extends React.Component<IAppProps, {}> {
       <Provider store={this.props.store}>
         <ConnectedRouter history={this.props.history}>
           <div className="app-root">
-            <Switch>
-              {this.props.routes}
-              <Route component={NotFoundPage} />
-            </Switch>
+            {/* <Switch> */}
+            {this.props.routes}
+            <Route component={NotFoundPage} />
+            {/* </Switch> */}
             {/* {!isProduction && <DevTools />} */}
           </div>
         </ConnectedRouter>

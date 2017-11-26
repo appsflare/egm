@@ -4,6 +4,7 @@ import { renderRoutes } from './routes';
 import { GatewaySelector } from './containers';
 import { ModuleManifest } from 'types';
 import { MenuGroup } from 'modules/core';
+import { NavLink } from 'react-router-dom';
 
 export * from './actions';
 export * from './constants';
@@ -24,6 +25,16 @@ export const GatewaysModuleInfo: ModuleManifest = {
             render() {
                 return (
                     <GatewaySelector />
+                );
+            }
+        },
+        {
+            key: 'gateways-list',
+            group: MenuGroup.TopLeft,
+            order: 1,
+            render() {
+                return (
+                    <NavLink className="nav-link" to="/app/gateways" />
                 );
             }
         }

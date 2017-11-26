@@ -62,4 +62,4 @@ export const GatewaySelector = connect(
         return { ...props, ...{ items, selectedGateway, isLoading } };
     }, // Selects which state properties are merged into the component's props
     (dispatch) => bindActionCreators(GatewaysActions, dispatch)           // Selects which action creators are merged into the component's props
-)(GatewaysDropdown);
+)(GatewaysDropdown);    

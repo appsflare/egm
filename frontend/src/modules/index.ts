@@ -1,6 +1,8 @@
 import { ModuleManifest } from 'types';
-import { GatewaysModuleInfo } from 'modules/gateways';
+import { AccountModuleInfo } from 'modules/account';
 import { CoreModuleInfo } from 'modules/core';
-const modules = [CoreModuleInfo, GatewaysModuleInfo] as Array<ModuleManifest>;
+import { GatewaysModuleInfo } from 'modules/gateways';
+
+const modules = [AccountModuleInfo, CoreModuleInfo, GatewaysModuleInfo] as Array<ModuleManifest>;
 
 export default modules.slice();
