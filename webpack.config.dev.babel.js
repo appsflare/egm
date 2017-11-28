@@ -128,11 +128,11 @@ module.exports = {
     }),
     // Generate html file to dist folder
     new HtmlWebpackPlugin({
-      title: 'Boilerplate',
+      title: 'Express Gateway Manager',
       template: 'frontend/template/index.ejs',
     }),
     // Add dll reference files to html
-    new AddAssetHtmlPlugin([
+    new AddAssetHtmlPlugin([      
       { filepath: 'frontend/dist/dll/react_dll.js', includeSourcemap: false },
       { filepath: 'frontend/dist/dll/immutable_dll.js', includeSourcemap: false },
       { filepath: 'frontend/dist/dll/materialize_dll.js', includeSourcemap: false },

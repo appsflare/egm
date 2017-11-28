@@ -110,9 +110,7 @@ export class Server {
     private addProdMiddlewares() {
         if (!this.isProd) {
             return;
-        }
-
-        console.log('adding prod middlewares');
+        }        
         // Server static files as usual
         const distPath = path.resolve(__dirname, '../frontend/dist/prod');
         this.use(
@@ -127,8 +125,14 @@ export class Server {
             return;
         }
 
+        const distPath = path.resolve(__dirname, '../frontend/dist/dev');
+        this.use(
+            express.static(distPath),
+            favicon(`${distPath}/favicon.ico`)
+        );
+
         const compiler = webpack(webpackConfig);
-        this.webpackMiddleware = webpackDevMiddleware(compiler, {
+        this.webpackMiddleware = webpackDevMiddleware(compiler, {             
             // The public URL of the output resource directory, should be the same as output.publicPath
             publicPath: webpackConfig.output.publicPath,
             // Colorful stats output

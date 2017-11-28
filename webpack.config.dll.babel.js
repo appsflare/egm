@@ -20,6 +20,7 @@ const reactVendors = [
   'redux-promise-middleware',
   'redux-thunk',
   'connected-react-router',
+  'semantic-ui-react'
 ];
 
 const bootstrap = [

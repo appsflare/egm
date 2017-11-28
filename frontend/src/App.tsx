@@ -10,7 +10,7 @@ import { NotFoundPage } from 'modules/core/pages';
 // import { DevTools } from 'containers/DevTools';
 
 // import { isProduction } from 'utils';
-
+import './styles/semantic.css';
 import 'image/favicon.ico';
 // Styles
 // Import Font Awesome Icons Set
