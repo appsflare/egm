@@ -12,16 +12,12 @@ import { NotFoundPage } from 'modules/core/pages';
 // import { isProduction } from 'utils';
 import './styles/semantic.css';
 import 'image/favicon.ico';
+import "scss/styles.scss"
 // Styles
 // Import Font Awesome Icons Set
 import 'font-awesome/css/font-awesome.min.css';
 // Import Simple Line Icons Set
 import 'simple-line-icons/css/simple-line-icons.css';
-// Import Main styles for this application
-import 'scss/style.scss'
-// Temp fix for reactstrap
-import 'scss/core/_dropdown-menu-right.scss'
-
 
 
 interface IAppProps {
@@ -36,13 +32,11 @@ export class App extends React.Component<IAppProps, {}> {
     return (
       <Provider store={this.props.store}>
         <ConnectedRouter history={this.props.history}>
-          <div className="app-root">
-            <Switch>
-              {this.props.routes}
-              <Route component={NotFoundPage} />
-              {/* {!isProduction && <DevTools />} */}
-            </Switch>
-          </div>
+          <Switch>
+            {this.props.routes}
+            <Route component={NotFoundPage} />
+            {/* {!isProduction && <DevTools />} */}
+          </Switch>
         </ConnectedRouter>
       </Provider>
     );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Footer, Header, Sidebar, MenuGroup } from 'modules/core';
-import { Container } from 'reactstrap';
+import { Container } from 'semantic-ui-react';
 import { ILayoutProps } from 'types';
 
 export class AppLayout extends React.Component<ILayoutProps> {

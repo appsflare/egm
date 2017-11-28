@@ -1,19 +1,20 @@
 import * as React from 'react';
-import { FormGroup, InputGroupAddon, InputGroup, Input, Alert } from "reactstrap";
+import { Input, FormField, Message } from "semantic-ui-react";
 
-export function renderFieldGroup(icon: string) {
+export function renderField(icon: string) {
     return function ({ className, input, label, type, value, meta: { asyncValidating, touched, error } }: any) {
         const isInvalid = touched && error;
 
-        const finalClass = `${className || ''} ${asyncValidating && 'async-validating'}`.trim();
+        const finalClass = `${className || ''}`;
         return (
-            <FormGroup>
-                <InputGroup className={finalClass}>
-                    <InputGroupAddon><i className={icon}></i></InputGroupAddon>
-                    <Input {...input} type={type} placeholder={label} valid={!isInvalid} defaultValue={value} />
-                </InputGroup>
-                {(isInvalid) ? (<Alert className="feedback-alert" color="danger">{error}</Alert>) : null}
-            </FormGroup>
+            <FormField>
+                <Input fluid icon={icon} loading={asyncValidating} className={finalClass}
+                    iconPosition="left" {...input}
+                    type={type} placeholder={label} 
+                    error={isInvalid} defaultValue={value}
+                />
+                <Message size="mini" floating visible={isInvalid} error>{error}</Message>
+            </FormField>
         );
     };
 }   
