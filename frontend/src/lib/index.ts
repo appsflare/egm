@@ -1,3 +1,3 @@
 export * from './form-helpers';
-export * from './reducerBuilder';
+export * from './reducer-builder';
 export * from './utils';
