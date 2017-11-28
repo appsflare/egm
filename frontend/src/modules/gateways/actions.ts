@@ -1,11 +1,11 @@
 import { GatewayInfo } from "./state";
-import { AsyncResult, createAction, createAsyncAction, createReceiveAsynAction } from "lib";
+import { IAsyncResult, createAction, createAsyncAction } from "lib";
 
 export interface RequestGatewaysListActionPayload {
     promise: Promise<ReceiveGatewaysListActionPayload>;
 }
 
-export interface ReceiveGatewaysListActionPayload extends AsyncResult<GatewayInfo[]> {
+export interface ReceiveGatewaysListActionPayload extends IAsyncResult<GatewayInfo[]> {
 }
 
 export interface SelectGatewayPayload {
@@ -21,10 +21,8 @@ export const GatewaysActionCreators = {
             promise: fetch(`/api/gateways`)
                 .then(response => response.json())
                 .then(result => Promise.resolve({ result }))
-        }
+        };
     }),
-    requestingGatewayList: createAction('REQUEST_GATEWAYSLIST_PENDING', (args: RequestGatewaysListActionPayload) => args),
-    receiveGatewayList: createReceiveAsynAction('REQUEST_GATEWAYSLIST_FULFILLED', (args: ReceiveGatewaysListActionPayload) => args),
     selectGateway: createAction('SELECT_GATEWAY', (args: SelectGatewayPayload) => args)
 }
 
@@ -34,8 +32,6 @@ export const GatewaysActionCreators = {
 
 export const GatewaysActions = {
     requestGatewaysList: GatewaysActionCreators.requestGatewaysList.create,
-    requestingGatewayList: GatewaysActionCreators.requestingGatewayList.create,
-    receiveGatewayList: GatewaysActionCreators.receiveGatewayList.create,
     selectGateway: GatewaysActionCreators.selectGateway.create
 };
 

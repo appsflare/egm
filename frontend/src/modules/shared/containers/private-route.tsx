@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Redirect, RouteProps, RouteComponentProps, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { IAccountState } from 'modules/account/state';
+import { ILoginState } from 'modules/account/state';
 import { bindActionCreators } from 'redux';
 import { AccountActions, AccountActionsType } from 'modules/account/actions';
+import { IApplicationState} from 'modules/account';
 
-function renderProtected(props: RouteProps & IAccountState & RouteComponentProps<{}> & AccountActionsType) {
+function renderProtected(props: RouteProps & ILoginState & RouteComponentProps<{}> & AccountActionsType) {
     const { isLoggedIn, location, component } = props;
 
     console.log('curr loc: ', location.pathname);
@@ -33,7 +34,7 @@ function renderProtected(props: RouteProps & IAccountState & RouteComponentProps
     );
 }
 
-export const PrivateRoute = connect((state: { accounts: IAccountState }, props: any) => {
-    const { accounts } = state;
-    return { ...accounts, ...props }
+export const PrivateRoute = connect((state: IApplicationState, props: any) => {
+    const { accounts:{ login } } = state;
+    return { ...login, ...props }
 }, (dispatch) => bindActionCreators(AccountActions, dispatch))(withRouter(renderProtected));

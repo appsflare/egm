@@ -4,7 +4,7 @@ import { RegisterForm, IRegisterFormData } from '../components';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { IAccountState } from '../state';
+import { IApplicationState } from '../state';
 import { AccountActions } from '../actions';
 
 const messages: any = {
@@ -65,12 +65,12 @@ const Form = reduxForm({
     }
 })(RegisterForm);
 
-export const RegisterFormContainer = connect((state: { accounts: IAccountState }, props: any) => {
-    const { accounts } = state;
-    const { isLoggingIn, isLoggedIn } = accounts;
+export const RegisterFormContainer = connect((state: IApplicationState, props: any) => {
+    const { accounts: { registration: { isInProgress, isSuccessful } } } = state;
+
     return {
-        isLoggingIn,
-        isLoggedIn,
+        isInProgress,
+        isSuccessful,
         ...props
     };
 }, (dispatch) => bindActionCreators(AccountActions, dispatch))(Form);

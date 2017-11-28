@@ -2,7 +2,7 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Dropdown, IDropdownItem } from 'modules/core';
 import { connect } from 'react-redux';
-import { GatewaysActions, GatewaysState, GatewaysActionsType } from 'modules/gateways';
+import { GatewaysActions, IGatewaysState, GatewaysActionsType } from 'modules/gateways';
 import { bindActionCreators } from 'redux';
 
 
@@ -53,7 +53,7 @@ class GatewaysDropdown extends React.Component<GatewaySelectorProps, GatewaySele
 
 
 export const GatewaySelector = connect(
-    ({ gateways }: { gateways: GatewaysState }, props: any) => {
+    ({ gateways }: { gateways: IGatewaysState }, props: any) => {
 
         const items = gateways.gateways.map(i => ({ text: i.name, value: i._id }));
 

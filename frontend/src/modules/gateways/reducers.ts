@@ -5,26 +5,27 @@ import {
 } from './actions';
 
 import { createReducerBuilder } from 'lib';
-import { GatewaysState } from './state';
+import { IGatewaysState } from './state';
 
-const reducerBuilder = createReducerBuilder<GatewaysState>();
+const reducerBuilder = createReducerBuilder<IGatewaysState>();
 
-reducerBuilder.register(GatewaysActionCreators.requestingGatewayList, (state: GatewaysState) => {
-    return {
-        gateways: state.gateways || [],
-        isLoading: true
-    };
+reducerBuilder.handleAsyncAction(GatewaysActionCreators.requestGatewaysList, {
+    pending(state: IGatewaysState) {
+        return {
+            gateways: state.gateways || [],
+            isLoading: true
+        };
+    },
+    fulfilled(state: IGatewaysState, { result }: ReceiveGatewaysListActionPayload) {
+        return {
+            ...state,
+            gateways: result,
+            isLoading: false
+        };
+    }
 });
 
-reducerBuilder.register(GatewaysActionCreators.receiveGatewayList, (state: GatewaysState, { result }: ReceiveGatewaysListActionPayload) => {
-    return {
-        ...state,
-        gateways: result,
-        isLoading: false
-    };
-});
-
-reducerBuilder.register(GatewaysActionCreators.selectGateway, (state: GatewaysState, { gatewayId }: SelectGatewayPayload) => {
+reducerBuilder.handleAction(GatewaysActionCreators.selectGateway, (state: IGatewaysState, { gatewayId }: SelectGatewayPayload) => {
     return {
         ...state,
         selectedGateway: gatewayId

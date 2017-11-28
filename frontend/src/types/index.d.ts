@@ -11,30 +11,9 @@ export { IApiLoaderStateProps, IApiLoaderDispatchProps } from 'components/ApiLoa
 export { ITodoLinkStateProps, ITodoLinkDispatchProps } from 'components/TodoLink';
 export { ITodoListStateProps, ITodoListDispatchProps } from 'components/TodoList';
 export { ITodoInputDispatchProps } from 'components/TodoInput';
+export * from './module';
+export * from './state';
 
-import { INavigationMenuItem, MenuGroup } from 'modules/core';
-
-export interface ILayoutProps {
-  getMenuItemsByGroup(group: MenuGroup): INavigationMenuItem[]
-}
-
-export interface ILayoutsMap {
-  [key: string]: React.ComponentClass<ILayoutProps>;
-}
-
-export interface IRouteBuilderContext {
-  getMenuItemsByGroup(group: MenuGroup): INavigationMenuItem[];
-  getLayout<TProps extends ILayoutProps>(name: string): React.ComponentClass<ILayoutProps>;
-}
-
-export interface ModuleManifest {
-  name: string;
-  version: string;
-  reducer: Reducer<any>;
-  layouts?: ILayoutsMap;
-  routes(context: IRouteBuilderContext): ReactNode;
-  menuItems?: INavigationMenuItem[];
-}
 
 // Todo App State
 export interface ITodoModel {

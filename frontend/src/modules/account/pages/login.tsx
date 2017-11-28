@@ -6,7 +6,7 @@ import { LoginFormContainer } from '../containers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { IAccountState } from '../state';
+import { IApplicationState } from '../state';
 
 import { AccountActions, AccountActionsType } from '../actions';
 import { Redirect, withRouter, RouteComponentProps } from 'react-router';
@@ -73,7 +73,7 @@ class LoginPageComp extends React.Component<LoginPageProps> {
 }
 
 
-export const LoginPage = connect((state: { accounts: IAccountState }, props: any) => {
-    const { accounts } = state;
-    return { ...accounts, ...props };
+export const LoginPage = connect((state: IApplicationState, props: any) => {
+    const { accounts: { login } } = state;
+    return { ...login, ...props };
 }, (dispatch) => bindActionCreators(AccountActions, dispatch))(withRouter(LoginPageComp));

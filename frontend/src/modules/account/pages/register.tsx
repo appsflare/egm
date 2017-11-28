@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Row, Col, Card, CardBody, CardFooter, Button } from 'reactstrap';
 import { RegisterFormContainer } from '../containers';
 import { connect } from 'react-redux';
-import { IAccountState } from '../state';
+import { IApplicationState } from '../state';
 import { bindActionCreators } from 'redux';
 import { AccountActions } from '../actions';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
@@ -36,8 +36,7 @@ class RegisterPageComp extends React.Component<RouteComponentProps<{}>> {
     }
 }
 
-
-export const RegisterPage = connect((state: { accounts: IAccountState }, props: any) => {
-    const { accounts } = state;
-    return { ...accounts, ...props };
+export const RegisterPage = connect((state: IApplicationState, props: any) => {
+    const { accounts: { registration } } = state;
+    return { ...registration, ...props };
 }, (dispatch) => bindActionCreators(AccountActions, dispatch))(withRouter(RegisterPageComp));

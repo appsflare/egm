@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { GatewaysState, GatewayInfo, GatewaysActionsType } from 'modules/gateways';
+import { IGatewaysState, GatewayInfo, GatewaysActionsType } from 'modules/gateways';
 import { DropdownMenu, Dropdown, DropdownToggle, DropdownItem } from 'reactstrap';
 
 // At runtime, Redux will merge together...
 type GatewayListProps =
     RouteComponentProps<{}>
-    & GatewaysState        // ... state we've requested from the Redux store
+    & IGatewaysState        // ... state we've requested from the Redux store
     & GatewaysActionsType      // ... plus action creators we've requested    
 //& RouteComponentProps<any>
 interface GatewaySelectorState {
