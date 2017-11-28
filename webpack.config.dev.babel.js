@@ -1,19 +1,19 @@
-import path from 'path';
-import webpack from 'webpack';
-import postcssCssnext from 'postcss-cssnext';
-import postcssImport from 'postcss-import';
+const path = require('path');
+const webpack = require('webpack');
+const postcssCssnext = require('postcss-cssnext');
+const postcssImport = require('postcss-import');
 
-import AddAssetHtmlPlugin from 'add-asset-html-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ProgressBarWebpackPlugin from 'progress-bar-webpack-plugin';
-import WebpackMd5Hash from 'webpack-md5-hash';
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ProgressBarWebpackPlugin = require('progress-bar-webpack-plugin');
+const WebpackMd5Hash = require('webpack-md5-hash');
 
-import * as ReactManifest from './frontend/dist/dll/react_manifest.json'; // eslint-disable-line import/no-unresolved
-import * as ImmutableManifest from './frontend/dist/dll/immutable_manifest.json'; // eslint-disable-line import/no-unresolved
-import * as MaterializeManifest from './frontend/dist/dll/materialize_manifest.json'; // eslint-disable-line import/no-unresolved
-import * as MiscManifest from './frontend/dist/dll/misc_manifest.json'; // eslint-disable-line import/no-unresolved
+const ReactManifest = require('./frontend/dist/dll/react_manifest.json'); // eslint-disable-line import/no-unresolved
+const ImmutableManifest = require('./frontend/dist/dll/immutable_manifest.json'); // eslint-disable-line import/no-unresolved
+const MaterializeManifest = require('./frontend/dist/dll/materialize_manifest.json'); // eslint-disable-line import/no-unresolved
+const MiscManifest = require('./frontend/dist/dll/misc_manifest.json'); // eslint-disable-line import/no-unresolved
 
-export default {
+module.exports = {
   // The base directory, an absolute path, for resolving entry points and loaders from configuration
   context: path.resolve(__dirname),
 

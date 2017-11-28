@@ -17,13 +17,15 @@ const reactVendors = [
   'redux-devtools-dock-monitor',
   'redux-devtools-log-monitor',
   'redux-logger',
-  'redux-promise',
+  'redux-promise-middleware',
   'redux-thunk',
   'connected-react-router',
 ];
 
-const materializeVendors = [
-  'materialize-css',
+const bootstrap = [
+  'jquery',
+  'bootstrap',
+  'reactstrap'
 ];
 
 const immutableVendors = [
@@ -45,7 +47,7 @@ let config = {
   // Start entry point(s)
   entry: {
     react: reactVendors,
-    materialize: materializeVendors,
+    materialize: bootstrap,
     immutable: immutableVendors,
     misc: miscVendors,
   },

@@ -141,7 +141,7 @@ let config = {
     }),
     // Generate html file to dist folder
     new HtmlWebpackPlugin({
-      title: 'Boilerplate',
+      title: 'Express Gateway Manager',
       template: 'frontend/template/index.ejs',
     }),
     // Add dll reference files to html
