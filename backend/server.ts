@@ -59,24 +59,22 @@ export class Server {
     private create() {
 
 
-       const middlewares = this.middlewares.map(m=> convertToGlobalMiddleware(m));
+        const middlewares = this.middlewares.map((m, index) => convertToGlobalMiddleware(m, this.middlewares.length - index));
         const app = createExpressServer({
             classTransformer: false,
             middlewares,
             controllers: toArray(Controllers),
         });
 
-        //this.middlewares.forEach(m => app.use(m));
-
-
-        app.get('*', (req: Request, res: Response) => {
-            const { distPath } = this.options;
-            console.log(req.url);
-
-            res.sendFile(`${distPath}/index.html`);
-        });
+        //this.middlewares.forEach(m => app.use(m));     
 
         if (this.isProd) {
+            app.get('*', (req: Request, res: Response) => {
+                const { distPath } = this.options;
+                console.log(req.url);
+
+                res.sendFile(`${distPath}/index.html`);
+            });
             app.disable('x-powered-by');
         }
 
@@ -87,6 +85,9 @@ export class Server {
         if (this.isProd) {
             this.use(helmet());
         }
+        const initializer = Container.get(PassportInitializer);
+        initializer.initialize();
+
         this.use(
             compression(),
             logger('dev'),
@@ -98,19 +99,18 @@ export class Server {
             //     extended: true,
             // }),
             cookieParser(),
-            session({ resave: true, saveUninitialized: true, secret: '324dewerwer2' }),
+            session({ cookie: { httpOnly: true }, resave: true, saveUninitialized: true, secret: '324dewerwer2' }),
             passport.initialize(),
             passport.session()
         );
 
-        const initializer = Container.get(PassportInitializer);
-        initializer.initialize();
+
     }
 
     private addProdMiddlewares() {
         if (!this.isProd) {
             return;
-        }        
+        }
         // Server static files as usual
         const distPath = path.resolve(__dirname, '../frontend/dist/prod');
         this.use(
@@ -132,7 +132,7 @@ export class Server {
         );
 
         const compiler = webpack(webpackConfig);
-        this.webpackMiddleware = webpackDevMiddleware(compiler, {             
+        this.webpackMiddleware = webpackDevMiddleware(compiler, {
             // The public URL of the output resource directory, should be the same as output.publicPath
             publicPath: webpackConfig.output.publicPath,
             // Colorful stats output

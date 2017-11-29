@@ -36,8 +36,16 @@ export const LoginActionCreators = {
                 method: 'GET',
                 body: JSON.stringify(args),
                 headers: [["content-type", "application/json"]]
-            }).then(res => res.json())
-                .then(result => ({ result }))
+            }).then(async (res) => {
+                if (!res.ok) {
+                    throw new Error(res.statusText);
+                }
+                const result = await res.json();
+                if (!result.isLoggedIn) {
+                    throw new Error('Not logged in!');
+                }
+                return result;
+            }).then(result => ({ result }))
         };
 
     })

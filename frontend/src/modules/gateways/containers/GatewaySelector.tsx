@@ -3,11 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { GatewaysActions, IGatewaysState, GatewaysActionsType } from 'modules/gateways';
 import { bindActionCreators } from 'redux';
-import { Dropdown } from 'semantic-ui-react';
-
-interface GatewaySelectorState {
-    isOpen: boolean;
-}
+import { Dropdown, DropdownProps } from 'semantic-ui-react';
 
 interface IDropdownItem {
     text: string; value: any;
@@ -20,19 +16,16 @@ interface GatewaySelectorProps extends RouteComponentProps<{}>, GatewaysActionsT
     onChange?(gatewayId: string): void;
 }
 
-class GatewaysDropdown extends React.Component<GatewaySelectorProps, GatewaySelectorState> {
+class GatewaysDropdown extends React.Component<GatewaySelectorProps> {
 
     constructor(props: GatewaySelectorProps) {
         super(props);
         this.state = { isOpen: false };
     }
 
-    toggle = (isOpen: boolean) => {
-        this.setState({ isOpen: !isOpen });
-    };
-
-    onChange = ({ value }: IDropdownItem) => {
-        this.props.selectGateway({ gatewayId: value })
+    private onChange = (event: React.SyntheticEvent<HTMLElement>, { value }: DropdownProps) => {
+        event.preventDefault();
+        this.props.selectGateway({ gatewayId: value as string })
     };
 
     componentDidMount() {
@@ -42,11 +35,11 @@ class GatewaysDropdown extends React.Component<GatewaySelectorProps, GatewaySele
     render() {
         const { isLoading, items } = this.props;
         return (
-            <Dropdown button floating labeled icon="world" search text="Select Gateway" noResultsMessage="No Gatewats to select"
+            <Dropdown floating labeled className="icon" icon="world" search text="Select Gateway" noResultsMessage="No Gatewats to select"
                 loading={isLoading}
-                isOpen={this.state.isOpen}
+                onChange={this.onChange}                
                 options={items.map(i => ({ key: i.value, text: i.text }))}
-                toggle={this.toggle} />
+            />
         );
     }
 }

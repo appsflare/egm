@@ -13,7 +13,3 @@ export interface INavigationMenuItem {
     render(): ReactNode;
     group: MenuGroup;
 }
-
-export interface INavigationMenuProps {    
-    items: INavigationMenuItem[];
-}

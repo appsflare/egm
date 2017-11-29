@@ -27,8 +27,9 @@ export class AccountController {
     }
 
     @Get("/me")
-    async me( @Req() req: Request) {
-        return req.user;
+    me( @Req() req: Request) {
+        console.log('i am at me');
+        return { isLoggedIn: req.user !== undefined, ...req.user };
     }
 
     @Post("/register")

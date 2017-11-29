@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {
-  // Nav,
-  // NavItem,
-  Menu
-
-} from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 
 import { INavigationMenuItem } from './NavigationMenu';
 
@@ -19,32 +14,34 @@ interface IHeaderProps {
 
 export class Header extends React.Component<IHeaderProps> {
 
-  private renderMenu(position: 'left' | 'right', items: INavigationMenuItem[]) {
+  private renderMenuItems(position: 'left' | 'right', items: INavigationMenuItem[]) {
     const children = _.sortBy(items, 'order').map(i => {
       return (
-        <Menu.Item key={i.key} >
+        <Menu.Item position={position} key={i.key} >
           {i.render()}
         </Menu.Item>
       );
     });
 
-    return (
-      <Menu.Menu position={position} children={children} />
-    );
+    return children;
   }
 
   render() {
     const { left, right } = this.props;
     return (
 
-      <header className="app-header navbar">
+      <header className="app-header">
 
-        <Menu>
-          <Menu.Header content="EGM" />
+        <Menu inverted fixed="top">
+          <Menu.Item>
+            <Menu.Header>
+              <Icon fitted circular name="wrench" color="teal" />
+            </Menu.Header>
+          </Menu.Item>
 
+          {this.renderMenuItems("left", left)}
 
-          {this.renderMenu("left", left)}
-          {this.renderMenu("right", right)}
+          {this.renderMenuItems("right", right)}
 
         </Menu>
 
