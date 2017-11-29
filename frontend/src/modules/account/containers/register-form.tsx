@@ -5,7 +5,7 @@ import { RegisterForm, IRegisterFormData } from '../components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { IApplicationState } from '../state';
-import { AccountActions } from '../actions';
+import { RegistrationActions } from '../actions';
 
 const messages: any = {
     'taken': 'Email already exists',
@@ -48,21 +48,7 @@ const Form = reduxForm({
 
     },
 
-    onSubmit(values: IRegisterFormData) {
-        return fetch('/account/register', {
-            body: JSON.stringify({ email: values.email, password: values.password }),
-            method: 'POST',
-            headers: [["content-type", "application/json"]]
-        });
-        // .then(r => {
-        //     if (!r.result) {
-        //         throw { email: messages[r.error] }
-        //     }
-        //     return r;
-        // }).catch(e => {
-        //     throw new SubmissionError({ _error: e.mssage })
-        // });
-    }
+
 })(RegisterForm);
 
 export const RegisterFormContainer = connect((state: IApplicationState, props: any) => {
@@ -73,4 +59,11 @@ export const RegisterFormContainer = connect((state: IApplicationState, props: a
         isSuccessful,
         ...props
     };
-}, (dispatch) => bindActionCreators(AccountActions, dispatch))(Form);
+}, (dispatch) => {
+    const { register } = bindActionCreators(RegistrationActions, dispatch);
+    return {
+        onSubmit(values: IRegisterFormData) {
+            return register(values);
+        }
+    };
+})(Form);

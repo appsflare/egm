@@ -1,13 +1,16 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Dropdown, IDropdownItem } from 'modules/core';
 import { connect } from 'react-redux';
 import { GatewaysActions, IGatewaysState, GatewaysActionsType } from 'modules/gateways';
 import { bindActionCreators } from 'redux';
-
+import { Dropdown } from 'semantic-ui-react';
 
 interface GatewaySelectorState {
     isOpen: boolean;
+}
+
+interface IDropdownItem {
+    text: string; value: any;
 }
 
 interface GatewaySelectorProps extends RouteComponentProps<{}>, GatewaysActionsType {
@@ -36,17 +39,14 @@ class GatewaysDropdown extends React.Component<GatewaySelectorProps, GatewaySele
         this.props.requestGatewaysList();
     }
 
-    private getSelectedText(): string {
-        const { selectedGateway, items } = this.props;
-        const gateway = items.find(i => i.value === selectedGateway);
-        return gateway ? gateway.text : 'Select...';
-    }
-
     render() {
+        const { isLoading, items } = this.props;
         return (
-            <Dropdown items={this.props.items} isOpen={this.state.isOpen} toggle={this.toggle} onChange={this.onChange}>
-                <span>{this.props.isLoading ? 'Loading...' : this.getSelectedText()}</span>
-            </Dropdown>
+            <Dropdown button floating labeled icon="world" search text="Select Gateway" noResultsMessage="No Gatewats to select"
+                loading={isLoading}
+                isOpen={this.state.isOpen}
+                options={items.map(i => ({ key: i.value, text: i.text }))}
+                toggle={this.toggle} />
         );
     }
 }

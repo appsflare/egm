@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, CardBody, CardHeader, CardFooter } from 'reactstrap';
+import { Button, Card, CardHeader } from 'semantic-ui-react';
 // import { Pushpin } from 'components/Pushpin';
 
 export class HomePage extends React.Component {
@@ -13,13 +13,13 @@ export class HomePage extends React.Component {
         <CardHeader>
           <strong>Add New Gateway</strong>
         </CardHeader>
-        <CardBody>
-          
-        </CardBody>
-        <CardFooter>
-          <Button color="success" size="sm"><i className="fa fa-save"/> Add</Button>
-          <Button color="danger" size="sm"><i className="fa fa-dot-circle-o"/> Clear</Button>
-        </CardFooter>
+        <Card.Content>
+
+        </Card.Content>
+        <Card.Description>
+          <Button color="green" size="mini"><i className="fa fa-save" /> Add</Button>
+          <Button color="red" size="mini"><i className="fa fa-dot-circle-o" /> Clear</Button>
+        </Card.Description>
       </Card>
     );
   }

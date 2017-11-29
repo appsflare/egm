@@ -1,9 +1,9 @@
 import { createReducerBuilder } from 'lib';
 import { ILoginState } from '../state';
-import { AccountActionCreators, ILoginResultPayload } from '../actions';
+import { LoginActionCreators, IRegistrationResultPayload } from '../actions';
 
 export const loginReducer = createReducerBuilder<ILoginState>()
-    .handleAsyncActions([AccountActionCreators.login, AccountActionCreators.checkLogin], {
+    .handleAsyncActions([LoginActionCreators.login, LoginActionCreators.checkLogin], {
         pending(state: ILoginState) {
             return {
                 ...state,
@@ -11,7 +11,7 @@ export const loginReducer = createReducerBuilder<ILoginState>()
                 isLoggingIn: true
             };
         },
-        fulfilled(state: ILoginState, { result }: ILoginResultPayload) {
+        fulfilled(state: ILoginState, { result }: IRegistrationResultPayload) {
             return {
                 ...state,
                 account: result && { _id: result._id, email: result.email },

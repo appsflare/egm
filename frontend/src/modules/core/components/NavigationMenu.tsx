@@ -1,6 +1,4 @@
-import React from 'react';
 import { ReactNode } from 'react';
-import { Nav, NavItem } from 'reactstrap';
 
 export enum MenuGroup {
     TopLeft = 1,
@@ -16,30 +14,6 @@ export interface INavigationMenuItem {
     group: MenuGroup;
 }
 
-export interface INavigationMenuProps {
-    className:string;
+export interface INavigationMenuProps {    
     items: INavigationMenuItem[];
-}
-
-
-export class NavigationMenu extends React.Component<INavigationMenuProps> {
-    constructor(props: INavigationMenuProps) {
-        super(props);
-    }
-
-    renderItem(item: INavigationMenuItem) {
-        return (
-            <NavItem key={item.key} className="px-3">
-                {item.render()}
-            </NavItem>
-        );
-    }
-
-    public render() {
-        return (
-            <Nav className={this.props.className} navbar>
-                {this.props.items.map(i => this.renderItem(i))}
-            </Nav>
-        );
-    }
 }

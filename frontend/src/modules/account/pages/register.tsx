@@ -1,14 +1,15 @@
 import * as React from 'react';
-import { GridColumn } from 'semantic-ui-react';
+import { GridColumn, Message } from 'semantic-ui-react';
 import { RegisterFormContainer } from '../containers';
 import { connect } from 'react-redux';
 import { IApplicationState } from '../state';
 import { bindActionCreators } from 'redux';
-import { AccountActions } from '../actions';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { LoginActions } from '../actions';
+import { RouteComponentProps, withRouter, NavLink } from 'react-router-dom';
 
 
-class RegisterPageComp extends React.Component<RouteComponentProps<{}>> {
+class RegisterPageComp extends React.Component<RouteComponentProps<{}>> {    
+
     render() {
         return (
             <GridColumn width="6">
@@ -17,6 +18,9 @@ class RegisterPageComp extends React.Component<RouteComponentProps<{}>> {
                         message: 'Successfully created your account!'
                     });
                 }} />
+                <Message>
+                    Already have an account? <NavLink to="app/account/login">Login Now!</NavLink>
+                </Message>
             </GridColumn>
         );
     }
@@ -25,4 +29,4 @@ class RegisterPageComp extends React.Component<RouteComponentProps<{}>> {
 export const RegisterPage = connect((state: IApplicationState, props: any) => {
     const { accounts: { registration } } = state;
     return { ...registration, ...props };
-}, (dispatch) => bindActionCreators(AccountActions, dispatch))(withRouter(RegisterPageComp));
+}, (dispatch) => bindActionCreators(LoginActions, dispatch))(withRouter(RegisterPageComp));

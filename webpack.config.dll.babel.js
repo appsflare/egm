@@ -23,18 +23,13 @@ const reactVendors = [
   'semantic-ui-react'
 ];
 
-const bootstrap = [
-  'jquery',
-  'bootstrap',
-  'reactstrap'
-];
 
 const immutableVendors = [
   'immutable',
 ];
 
 const miscVendors = [
-  'hammerjs',
+  'whatwg-fetch',
   'lodash',
   'prismjs',
   'regenerator-runtime',
@@ -48,7 +43,6 @@ let config = {
   // Start entry point(s)
   entry: {
     react: reactVendors,
-    materialize: bootstrap,
     immutable: immutableVendors,
     misc: miscVendors,
   },
@@ -70,12 +64,12 @@ let config = {
       clear: false,
     }),
     // jQuery support
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-      'root.jQuery': 'jquery',
-    }),
+    // new webpack.ProvidePlugin({
+    //  $: 'jquery',
+    //  jQuery: 'jquery',
+    //  'window.jQuery': 'jquery',
+    //  'root.jQuery': 'jquery',
+    // }),
     // Output manifest json file for each generated dll reference file
     new webpack.DllPlugin({
       path: path.resolve(__dirname, 'frontend/dist/dll/[name]_manifest.json'),

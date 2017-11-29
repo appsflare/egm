@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { GridColumn, Button, Message } from 'semantic-ui-react';
+import { GridColumn, Message } from 'semantic-ui-react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect, withRouter, RouteComponentProps } from 'react-router';
+import { Redirect, withRouter, RouteComponentProps, NavLink } from 'react-router-dom';
 
 import { LoginFormContainer } from '../containers';
 import { IApplicationState } from '../state';
-import { AccountActions, AccountActionsType } from '../actions';
+import { LoginActions, LoginActionsType } from '../actions';
 
 
-interface LoginPageProps extends AccountActionsType, RouteComponentProps<any> {
+interface LoginPageProps extends LoginActionsType, RouteComponentProps<any> {
     isLoggedIn: boolean;
     isLoggingIn: boolean;
     error?: string;
@@ -18,16 +18,8 @@ interface LoginPageProps extends AccountActionsType, RouteComponentProps<any> {
 
 class LoginPageComp extends React.Component<LoginPageProps> {
 
-    // onSubmit = (values: any) => {
-    //     return this.props.login(values).payload.promise;
-    // }
-
     componentDidMount() {
         this.props.checkLogin();
-    }
-
-    gotoRegister = () => {
-        this.props.history.push('/app/account/register');
     }
 
     render() {
@@ -50,7 +42,7 @@ class LoginPageComp extends React.Component<LoginPageProps> {
                 {flashMessage && <Message info visible>{flashMessage}</Message>}
                 {isLoggingIn ? 'Please wait...' : <LoginFormContainer form="login" />}
                 <Message>
-                    Create a new account to start managing your express gateway instances.<Button color="green" active onClick={this.gotoRegister} >Register Now!</Button>
+                    Create a new account to start managing your express gateway instances. <NavLink to="/app/account/register">Register Now!</NavLink>
                 </Message>
             </GridColumn>
         );
@@ -62,4 +54,4 @@ class LoginPageComp extends React.Component<LoginPageProps> {
 export const LoginPage = connect((state: IApplicationState, props: any) => {
     const { accounts: { login } } = state;
     return { ...login, ...props };
-}, (dispatch) => bindActionCreators(AccountActions, dispatch))(withRouter(LoginPageComp));
+}, (dispatch) => bindActionCreators(LoginActions, dispatch))(withRouter(LoginPageComp));

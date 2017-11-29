@@ -5,7 +5,7 @@ import { LoginForm, ILoginFormData } from '../components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { IApplicationState } from '../state';
-import { AccountActions } from '../actions';
+import { LoginActions } from '../actions';
 
 const Form = reduxForm({ form: 'login' })(LoginForm);
 
@@ -20,7 +20,7 @@ export const LoginFormContainer = connect((state: IApplicationState, props: any)
     };
 }, (dispatch) => {
 
-    const { login } = bindActionCreators(AccountActions, dispatch);
+    const { login } = bindActionCreators(LoginActions, dispatch);
 
     return {
         onSubmit(values: ILoginFormData) {

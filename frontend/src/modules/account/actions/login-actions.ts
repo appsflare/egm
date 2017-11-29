@@ -13,7 +13,7 @@ export interface ILoginPayload {
 
 export interface ILoginResultPayload extends IAsyncResult<IAccountInfo> { }
 
-export const AccountActionCreators = {
+export const LoginActionCreators = {
     login: createAsyncAction("LOGIN", (args: ILoginArgs) => {
 
         return {
@@ -44,10 +44,10 @@ export const AccountActionCreators = {
 };
 
 
-export const AccountActions = {
-    login: AccountActionCreators.login.create,
-    checkLogin: AccountActionCreators.checkLogin.create,
+export const LoginActions = {
+    login: LoginActionCreators.login.create,
+    checkLogin: LoginActionCreators.checkLogin.create,
 
 };
 
-export type AccountActionsType = typeof AccountActions;
+export type LoginActionsType = typeof LoginActions;
