@@ -1,6 +1,6 @@
-import { addTodo, setVisibilityFilter, toggleTodo } from 'actions/todoList';
-import { ADD_TODO, SET_VISIBILITY_FILTER, TOGGLE_TODO, VisibilityFiltersOptions } from 'constants/actionTypes';
-import { IActionAddTodo, IActionSetVisibilityFilter, IActionToggleTodo } from 'types';
+import { addTodo, setVisibilityFilter, toggleTodo } from 'frontend/src/actions/todoList';
+import { ADD_TODO, SET_VISIBILITY_FILTER, TOGGLE_TODO, VisibilityFiltersOptions } from 'frontend/src/constants/actionTypes';
+import { IActionAddTodo, IActionSetVisibilityFilter, IActionToggleTodo } from 'frontend/src/types';
 
 describe('[Actions] todoList test', () => {
   it('[addTodo] should return IActionAddTodo with input text, random id string and completed as false', () => {

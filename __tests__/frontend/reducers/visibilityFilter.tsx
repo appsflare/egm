@@ -1,6 +1,6 @@
-import { SET_VISIBILITY_FILTER, TEST_DEFAULT_ACTION, VisibilityFiltersOptions } from 'constants/actionTypes';
-import { visibilityFilter } from 'reducers/visibilityFilter';
-import { IActionsFilter, IActionTestDefault, IVisibilityFilterOption } from 'types';
+import { SET_VISIBILITY_FILTER, TEST_DEFAULT_ACTION, VisibilityFiltersOptions } from 'frontend/src/constants/actionTypes';
+import { visibilityFilter } from 'frontend/src/reducers/visibilityFilter';
+import { IActionsFilter, IActionTestDefault, IVisibilityFilterOption } from 'frontend/src/types';
 
 describe('[Reducers] visibilityFilter test', () => {
   const initialState: IVisibilityFilterOption = VisibilityFiltersOptions.SHOW_ALL;
