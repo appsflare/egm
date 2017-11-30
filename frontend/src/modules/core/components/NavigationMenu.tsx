@@ -7,9 +7,13 @@ export enum MenuGroup {
     SidebarRight = 4
 }
 
-export interface INavigationMenuItem {
+export interface IMenuItem {
     key: string;
     order: number;
     render(): ReactNode;
+}
+
+export interface INavigationMenuItem extends IMenuItem {
     group: MenuGroup;
+    children?: IMenuItem[];
 }

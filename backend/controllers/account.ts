@@ -45,7 +45,7 @@ export class AccountController {
     @Get("/logout")
     logout( @Req() req: Request) {
         let result = !!req.user;
-        result && req.logOut();
+        req.logOut();
 
         return { result }
     }

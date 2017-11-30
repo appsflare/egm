@@ -2,8 +2,10 @@ import { ModuleManifest } from 'types';
 import { renderRoutes } from './routes'
 import reducers from './reducers';
 import { AccountLayout } from './layouts';
+import { menuItems } from './menu-items';
 //export * from './containers';
 export * from './state';
+
 
 export const AccountModuleInfo: ModuleManifest = {
     version: '1.0',
@@ -13,6 +15,5 @@ export const AccountModuleInfo: ModuleManifest = {
     layouts: {
         'account': AccountLayout
     },
-    menuItems: [
-    ]
+    menuItems
 };

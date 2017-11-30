@@ -10,8 +10,11 @@ export interface ILoginPayload {
     promise: Promise<IAccountInfo>;
     data: ILoginArgs
 }
-
+interface ILogoutResult {
+    result: boolean;
+}
 export interface ILoginResultPayload extends IAsyncResult<IAccountInfo> { }
+export interface ILogoutResultPayload extends IAsyncResult<ILogoutResult> { }
 
 export const LoginActionCreators = {
     login: createAsyncAction("LOGIN", (args: ILoginArgs) => {
@@ -27,6 +30,18 @@ export const LoginActionCreators = {
                 .then(result => ({ result }))
         };
 
+    }),
+    logout: createAsyncAction("LOGOUT", (args: any) => {
+        return {
+            data: args,
+            promise: fetch('/account/logout', {
+                credentials: 'include',
+                method: 'GET',
+                body: JSON.stringify(args),
+                headers: [["content-type", "application/json"]]
+            }).then(res => res.json())
+                .then(result => ({ result }))
+        };
     }),
     checkLogin: createAsyncAction("CHECK_LOGIN", (args: ILoginArgs) => {
 
@@ -54,8 +69,8 @@ export const LoginActionCreators = {
 
 export const LoginActions = {
     login: LoginActionCreators.login.create,
-    checkLogin: LoginActionCreators.checkLogin.create,
-
+    logout: LoginActionCreators.logout.create,
+    checkLogin: LoginActionCreators.checkLogin.create
 };
 
 export type LoginActionsType = typeof LoginActions;

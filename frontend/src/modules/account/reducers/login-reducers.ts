@@ -3,6 +3,16 @@ import { ILoginState } from '../state';
 import { LoginActionCreators, IRegistrationResultPayload } from '../actions';
 
 export const loginReducer = createReducerBuilder<ILoginState>()
+    .handleAsyncAction(LoginActionCreators.logout, {
+        fulfilled(state: ILoginState) {
+            return {
+                ...state,
+                account: undefined,
+                isLoggedIn: false,
+                isLoggingIn: false
+            };
+        },
+    })
     .handleAsyncActions([LoginActionCreators.login, LoginActionCreators.checkLogin], {
         pending(state: ILoginState) {
             return {

@@ -10,6 +10,12 @@ export interface ILoginState {
     error?: string;    
 }
 
+export interface ILogoutState {
+    isLoggedOut: boolean;
+    isLoggingOut: boolean;    
+    error?: string;    
+}
+
 export interface IRegistrationState{
     isInProgress: boolean;
     isSuccessful: boolean;
@@ -18,6 +24,7 @@ export interface IRegistrationState{
 
 export interface IAccountModuleState {
     login: ILoginState;
+    logout: ILogoutState;
     registration: IRegistrationState; 
 }
 

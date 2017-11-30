@@ -11,11 +11,12 @@ const Form = reduxForm({ form: 'login' })(LoginForm);
 
 export const LoginFormContainer = connect((state: IApplicationState, props: any) => {
 
-    const { accounts: { login: { isLoggingIn, isLoggedIn } } } = state;
+    const { accounts: { logout:{ isLoggingOut }, login: { isLoggingIn, isLoggedIn } } } = state;
 
     return {
         isLoggingIn,
         isLoggedIn,
+        isLoggingOut,
         ...props
     };
 }, (dispatch) => {
