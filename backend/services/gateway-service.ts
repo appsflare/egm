@@ -1,4 +1,4 @@
-import { Service, Token, Inject } from 'typedi';
+import { Service,  Inject } from 'ts-express-decorators';
 import { IGatewayModel, GatewayModel } from '../models';
 import { Document, Model } from 'mongoose';
 
@@ -8,10 +8,8 @@ export interface IGatewayService {
     register(gateway: IGatewayModel): Promise<IGatewayModel>;    
 }
 
-@Service(GatewayService.type)
-export class GatewayService implements IGatewayService {
-
-    static type = new Token<GatewayService>();
+@Service()
+export class GatewayService implements IGatewayService {    
 
     constructor( @Inject(GatewayModel.type) private readonly gatewayModel: Model<IGatewayModel & Document>) {
     }

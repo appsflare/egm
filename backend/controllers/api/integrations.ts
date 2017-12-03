@@ -1,16 +1,17 @@
-import { JsonController, Post, Body } from 'routing-controllers';
+import { Authenticated, Controller, Post, BodyParams } from 'ts-express-decorators';
 import { Inject } from 'typedi';
 import { GatewayService, IGatewayService } from '../../services';
 import { IGatewayModel } from '../../models';
 
-@JsonController("/api/integrations")
+@Authenticated()
+@Controller("/api/integrations")
 export class IntegrationsController {
 
   constructor( @Inject(GatewayService.type) private readonly gatewayService: IGatewayService) {
   }
 
   @Post("/gateways")
-  registerGateway(@Body()gateway: IGatewayModel) {    
+  registerGateway( @BodyParams() gateway: IGatewayModel) {
     return this.gatewayService.register(gateway);
   }
 }

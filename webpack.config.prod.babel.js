@@ -13,7 +13,6 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 import * as ReactManifest from './frontend/dist/dll/react_manifest.json'; // eslint-disable-line import/no-unresolved
 import * as ImmutableManifest from './frontend/dist/dll/immutable_manifest.json'; // eslint-disable-line import/no-unresolved
-import * as MaterializeManifest from './frontend/dist/dll/materialize_manifest.json'; // eslint-disable-line import/no-unresolved
 import * as MiscManifest from './frontend/dist/dll/misc_manifest.json'; // eslint-disable-line import/no-unresolved
 
 const isProfile = process.env.profile;
@@ -45,10 +44,10 @@ let config = {
       {
         test: /\.tsx?$/,
         use: [
-          { loader: 'babel-loader' },
+          //{ loader: 'babel-loader' },
           // Use those two flags to speed up babel compilation
           // https://github.com/s-panferov/awesome-typescript-loader#differences-between-ts-loader
-          { loader: 'awesome-typescript-loader', options: { useBabel: true, useCache: true, configFileName: 'tsconfig.frontend.json' } },
+          { loader: 'awesome-typescript-loader', options: { useCache: true, configFileName: 'tsconfig.frontend.json' } },
           // Alternatively, we can use ts-loader instead of awesome-typescript-loader
           // { loader: 'ts-loader' },
         ],
@@ -116,12 +115,12 @@ let config = {
       },
     }),
     // jQuery support
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-      'root.jQuery': 'jquery',
-    }),
+    // new webpack.ProvidePlugin({
+    //   $: 'jquery',
+    //   jQuery: 'jquery',
+    //   'window.jQuery': 'jquery',
+    //   'root.jQuery': 'jquery',
+    // }),
     // Load pre-build dll reference files
     new webpack.DllReferencePlugin({
       manifest: ReactManifest,
@@ -130,11 +129,7 @@ let config = {
     new webpack.DllReferencePlugin({
       manifest: ImmutableManifest,
       context: __dirname,
-    }),
-    new webpack.DllReferencePlugin({
-      manifest: MaterializeManifest,
-      context: __dirname,
-    }),
+    }),  
     new webpack.DllReferencePlugin({
       manifest: MiscManifest,
       context: __dirname,
@@ -147,8 +142,7 @@ let config = {
     // Add dll reference files to html
     new AddAssetHtmlPlugin([
       { filepath: 'frontend/dist/dll/react_dll.js', includeSourcemap: false },
-      { filepath: 'frontend/dist/dll/immutable_dll.js', includeSourcemap: false },
-      { filepath: 'frontend/dist/dll/materialize_dll.js', includeSourcemap: false },
+      { filepath: 'frontend/dist/dll/immutable_dll.js', includeSourcemap: false },      
       { filepath: 'frontend/dist/dll/misc_dll.js', includeSourcemap: false },
     ]),
     // Extract css part from javascript bundle into a file

@@ -24,12 +24,8 @@ class LoginPageComp extends React.Component<LoginPageProps> {
 
     render() {
         const { isLoggedIn, isLoggingIn, location } = this.props;
-
         const { state } = location;
-
         const flashMessage = state && state.message;
-
-
 
         if (isLoggedIn) {
             return (

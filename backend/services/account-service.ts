@@ -1,4 +1,4 @@
-import { Service, Token, Inject } from 'typedi';
+import { Service, Inject } from 'ts-express-decorators';
 import { IAccountModel, AccountModel } from '../models';
 import { Document, Model } from 'mongoose';
 
@@ -14,11 +14,8 @@ export interface IAccountService {
 
 }
 
-@Service(AccountService.type)
+@Service()
 export class AccountService implements IAccountService {
-
-
-    static type = new Token<AccountService>();
 
     constructor( @Inject(AccountModel.type) private readonly accountModel: Model<IAccountModel & Document>) {
     }

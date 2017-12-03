@@ -10,7 +10,6 @@ const WebpackMd5Hash = require('webpack-md5-hash');
 
 const ReactManifest = require('./frontend/dist/dll/react_manifest.json'); // eslint-disable-line import/no-unresolved
 const ImmutableManifest = require('./frontend/dist/dll/immutable_manifest.json'); // eslint-disable-line import/no-unresolved
-const MaterializeManifest = require('./frontend/dist/dll/materialize_manifest.json'); // eslint-disable-line import/no-unresolved
 const MiscManifest = require('./frontend/dist/dll/misc_manifest.json'); // eslint-disable-line import/no-unresolved
 
 module.exports = {
@@ -47,10 +46,10 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: [
-          { loader: 'babel-loader' },
+          //{ loader: 'babel-loader' },
           // Use those two flags to speed up babel compilation
           // https://github.com/s-panferov/awesome-typescript-loader#differences-between-ts-loader
-          { loader: 'awesome-typescript-loader', options: { useBabel: true, useCache: true, configFileName: 'tsconfig.frontend.json' } },
+          { loader: 'awesome-typescript-loader', options: { useCache: true, configFileName: 'tsconfig.frontend.json' } },
           // Alternatively, we can use ts-loader instead of awesome-typescript-loader
           // { loader: 'ts-loader' },
         ],
@@ -93,7 +92,7 @@ module.exports = {
     ],
   },
 
-  plugins: [
+  plugins: [    
     // Enable hot module reload, if have --hot parameter in npm script, then this line must be removed!
     new webpack.HotModuleReplacementPlugin(),
     // Better webpack module name display
@@ -102,20 +101,16 @@ module.exports = {
     new ProgressBarWebpackPlugin({
       clear: false,
     }),
-    // jQuery support
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-      'root.jQuery': 'jquery',
-    }),
+    // // jQuery support
+    // new webpack.ProvidePlugin({
+    //   $: 'jquery',
+    //   jQuery: 'jquery',
+    //   'window.jQuery': 'jquery',
+    //   'root.jQuery': 'jquery',
+    // }),
     // Load pre-build dll reference files
     new webpack.DllReferencePlugin({
       manifest: ReactManifest,
-      context: __dirname,
-    }),
-    new webpack.DllReferencePlugin({
-      manifest: MaterializeManifest,
       context: __dirname,
     }),
     new webpack.DllReferencePlugin({
@@ -134,8 +129,7 @@ module.exports = {
     // Add dll reference files to html
     new AddAssetHtmlPlugin([      
       { filepath: 'frontend/dist/dll/react_dll.js', includeSourcemap: false },
-      { filepath: 'frontend/dist/dll/immutable_dll.js', includeSourcemap: false },
-      { filepath: 'frontend/dist/dll/materialize_dll.js', includeSourcemap: false },
+      { filepath: 'frontend/dist/dll/immutable_dll.js', includeSourcemap: false },      
       { filepath: 'frontend/dist/dll/misc_dll.js', includeSourcemap: false },
     ]),
     // Better hash for [hash] and [chunkhash]

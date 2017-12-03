@@ -1,9 +1,8 @@
 import "reflect-metadata";
 import "./models";
 import * as express from 'express';
-import { createExpressServer, useContainer } from 'routing-controllers';
+import { ServerLoader, GlobalAcceptMimesMiddleware, ServerSettings } from 'ts-express-decorators';
 import { Container } from 'typedi';
-import { Request, Response } from 'express';
 import * as path from 'path';
 import * as favicon from 'serve-favicon';
 import * as  logger from 'morgan';
@@ -15,7 +14,7 @@ import * as mongoose from 'mongoose';
 import * as passport from 'passport';
 import * as session from 'express-session';
 
-import { convertToGlobalMiddleware, toArray } from './lib';
+
 import * as Controllers from './controllers';
 
 import * as webpack from 'webpack';
@@ -27,7 +26,6 @@ import { PassportInitializer } from "./passport-initializer";
 
 const webpackConfig = require('../webpack.config.dev.babel');
 
-useContainer(Container);
 
 require('mongoose').Promise = Promise;
 
@@ -38,57 +36,57 @@ interface ServerOptions {
     port: number
 }
 
-export class Server {
-    private readonly middlewares = new Array<any>();
+@ServerSettings({})
+export class Server extends ServerLoader {    
+
     private webpackMiddleware: WebpackDevMiddleware;
     private started: boolean = false;
     private app: any;
 
     constructor(private readonly options: ServerOptions) {
-        Container.set("config", this.options);
+        super();
+        this.registerDependency("config", this.options);
     }
 
     get isProd() {
         return this.options.isProduction === true;
     }
 
-    private use(...middlewares: Array<any>) {
-        this.middlewares.push(...middlewares);
+    $onInit(): Promise<any> {
+        return this.beforeStart();
     }
 
-    private create() {
+    async $onMountingMiddlewares(): Promise<any> {
+        this.addCommonMiddlewares();
+        this.addDevMiddlewares();
+        this.addProdMiddlewares();
+
+        await this.beforeStart();
 
 
-        const middlewares = this.middlewares.map((m, index) => convertToGlobalMiddleware(m, this.middlewares.length - index));
-        const app = createExpressServer({
-            classTransformer: false,
-            middlewares,
-            controllers: toArray(Controllers),
+        const { port } = this.options;
+        // Start server listen on specific port
+        this.app.listen(port, (error: string) => {
+            if (error) {
+                console.log(`\n${error}`);
+                return;
+            }
+            console.log(`\nExpress: Listening on port ${port}, open up http://localhost:${port}/ in your broswer!\n`);
         });
-
-        //this.middlewares.forEach(m => app.use(m));     
-
-        if (this.isProd) {
-            app.get('*', (req: Request, res: Response) => {
-                const { distPath } = this.options;
-                console.log(req.url);
-
-                res.sendFile(`${distPath}/index.html`);
-            });
-            app.disable('x-powered-by');
-        }
-
-        this.app = app;
+        this.started = true;
     }
+
 
     private addCommonMiddlewares() {
         if (this.isProd) {
             this.use(helmet());
         }
+
         const initializer = Container.get(PassportInitializer);
         initializer.initialize();
 
         this.use(
+            GlobalAcceptMimesMiddleware,
             compression(),
             logger('dev'),
             bodyParser.json({
@@ -124,12 +122,6 @@ export class Server {
         if (this.isProd) {
             return;
         }
-
-        const distPath = path.resolve(__dirname, '../frontend/dist/dev');
-        this.use(
-            express.static(distPath),
-            favicon(`${distPath}/favicon.ico`)
-        );
 
         const compiler = webpack(webpackConfig);
         this.webpackMiddleware = webpackDevMiddleware(compiler, {
@@ -167,24 +159,5 @@ export class Server {
     registerDependency(key: any, value: any) {
         Container.set(key, value);
     }
-
-    async start() {
-        this.addCommonMiddlewares();
-        this.addDevMiddlewares();
-        this.addProdMiddlewares();
-
-        await this.beforeStart();
-        this.create();
-
-        const { port } = this.options;
-        // Start server listen on specific port
-        this.app.listen(port, (error: string) => {
-            if (error) {
-                console.log(`\n${error}`);
-                return;
-            }
-            console.log(`\nExpress: Listening on port ${port}, open up http://localhost:${port}/ in your broswer!\n`);
-        });
-        this.started = true;
-    }
+    
 }

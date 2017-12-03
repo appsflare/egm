@@ -3,7 +3,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
-    "jsx": "preserve",
+    "jsx": "react",
     "moduleResolution": "node",
     "baseUrl": "backend",
     "outDir": "bin",

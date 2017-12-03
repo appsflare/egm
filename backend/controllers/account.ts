@@ -1,11 +1,11 @@
 import * as passport from 'passport';
 import { Request } from 'express';
-import { Body, Get, JsonController, Post, Req, UseBefore } from 'routing-controllers';
+import { BodyParams, Get, Controller, Post, Req, UseBefore } from 'ts-express-decorators';
 import { IAccountModel } from '../models/index';
 import { IAccountService, AccountService } from '../services';
 import { Inject } from 'typedi';
 
-@JsonController("/account")
+@Controller("/account")
 export class AccountController {
 
     constructor( @Inject(AccountService.type) private accountService: IAccountService) { }
@@ -33,12 +33,12 @@ export class AccountController {
     }
 
     @Post("/register")
-    register( @Body() account: IAccountModel) {
+    register( @BodyParams() account: IAccountModel) {
         return this.accountService.register(account);
     }
 
     @Post("/validate/email")
-    validateEmail( @Body() account: Partial<IAccountModel>) {
+    validateEmail( @BodyParams() account: Partial<IAccountModel>) {
         return this.accountService.isEmailValid(account.email || '');
     }
 

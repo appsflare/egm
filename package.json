@@ -36,9 +36,9 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.10",
-    "routing-controllers": "^0.7.6",
     "serve-favicon": "2.4.5",
     "superagent": "3.8.1",
+    "ts-express-decorators": "^2.15.2",
     "typedi": "^0.5.2",
     "uuid": "^3.1.0"
   },
@@ -53,7 +53,6 @@
     "@types/helmet": "0.0.37",
     "@types/history": "4.6.2",
     "@types/jest": "21.1.6",
-    "@types/materialize-css": "0.100.2",
     "@types/mongodb": "^2.2.15",
     "@types/mongoose": "^4.7.27",
     "@types/morgan": "^1.7.35",
